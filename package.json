@@ -1,0 +1,29 @@
+{
+  "name": "node-dogapi",
+  "version": "0.1.0",
+  "description": "Datadog API Node.JS Client",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/brettlangdon/node-dogapi.git"
+  },
+  "keywords": [
+    "datadog",
+    "api",
+    "datadog",
+    "api",
+    "dog",
+    "dog",
+    "api"
+  ],
+  "author": "Brett Langdon <brett@blangdon.com> (http://brett.is)",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "gitHead": "f388635a5ab4f4da25702dc0999385d437bdf2bc",
+  "dependencies": {
+    "extend": "~1.1.3"
+  }
+}
