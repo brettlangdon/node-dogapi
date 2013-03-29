@@ -25,6 +25,8 @@ npm install
 
 * `dogapi.stream(start, end, [[filter], callback])`
   * function used to retrieve all events that have occured between
+* `dogapi.polling_stream(interval, [[filter], callback])`
+  * function used to continuously call `stream` for new events
 * `dogapi.get_event(event_id, callback)`
   * method used to retrieve a single event's data
 * `dogapi.add_event(event, callback)`
