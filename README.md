@@ -59,7 +59,24 @@ npm install
   * method used to update the dashboard with the provided `dash_id`
 * `dogapi.delete_dashboard(dash_id, [callback])`
   * method to remove a dashboard from datadog
-
+* `dogapi.search(query, [callback])`
+  * method used to query the api for `metrics` or `hosts`
+* `dogapi.add_metric(metric, [callback])`
+  * method used to add a single metric to datadog
+* `dogapi.add_metrics(metrics, [callback])`
+  * method used to add multiple metrics to datadog
+* `dogapi.all_tags([[source], callback])`
+  * method to get all the tags in datadog
+* `dogapi.host_tags(host, [[source], callback])`
+  * method to get the tags associated with a given `host`
+* `dogapi.host_tags_by_source(host, [[source], callback])`
+  * method to return the tags associated with a host, arranged by source
+* `dogapi.add_tags(host, tags, [[source], callback])`
+  * add new tags to given `host`
+* `dogapi.update_tags(host, tags, [[source], callback])`
+  * update the tags associated with the given `host`
+* `dogapi.detach_tags(host, [[source], callback])`
+  * method to remove tags for a given `host`
 
 ## Sample Usage:
 
