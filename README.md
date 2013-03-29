@@ -19,6 +19,32 @@ cd ./node-dogapi
 npm install
 ```
 
+## Configuration
+
+You will need your Datadog api key as well as an application key to use `dogapi`.
+
+Keys can be found at: https://app.datadoghq.com/account/settings#api
+
+The keys can be provided either as constructor parameters when creating an instance of `dogapi`
+as `api_key` and `app_key` or as the environment variables `DD_API_KEY` and `DD_APP_KEY`.
+
+**Constructor parameters:**
+```javascript
+var dogapi = require('dogapi');
+
+var options = {
+ api_key: 'YOUR_KEY_HERE',
+ app_key: 'YOUR_KEY_HERE',
+};
+
+var app = new dogapi(options);
+```
+
+**Environment Variables:**
+```bash
+DD_API_KEY=YOUR_KEY_HERE DD_APP_KEY=YOUR_KEY_HERE node app.js
+```
+
 ## API
 
 `dogapi` implements all available functions in the official datadog api, http://docs.datadoghq.com/api/.
