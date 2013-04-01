@@ -1,6 +1,6 @@
 {
   "name": "dogapi",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Datadog API Node.JS Client",
   "main": "lib/index.js",
   "scripts": {
@@ -13,11 +13,10 @@
   "keywords": [
     "datadog",
     "api",
-    "datadog",
-    "api",
+    "datadog api",
     "dog",
-    "dog",
-    "api"
+    "dogapi",
+    "dog api"
   ],
   "author": "Brett Langdon <brett@blangdon.com> (http://brett.is)",
   "license": "MIT",
