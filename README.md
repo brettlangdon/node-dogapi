@@ -87,6 +87,16 @@ DD_API_KEY=YOUR_KEY_HERE DD_APP_KEY=YOUR_KEY_HERE node app.js
   * method used to update the dashboard with the provided `dash_id`
 * `dogapi.delete_dashboard(dash_id, [callback])`
   * method to remove a dashboard from datadog
+* `dogapi.get_screenboard(screen_id, [callback])`
+  * method to get a single screenboard information
+* `dogapi.get_all_screenboards([callback])`
+  * method to retrieve all screenboards in datadog
+* `dogapi.create_screenboard(screenboard, [callback])`
+  * method used to create a new screenboard in datadog
+* `dogapi.update_screenboard(screen_id, screenboard, [callback])`
+  * method used to update the screenboard with the provided `screen_id`
+* `dogapi.delete_screenboard(screen_id, [callback])`
+  * method to remove a screenboard from datadog
 * `dogapi.search(query, [callback])`
   * method used to query the api for `metrics` or `hosts`
 * `dogapi.add_metric(metric, [callback])`
