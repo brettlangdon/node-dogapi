@@ -1,6 +1,6 @@
 {
   "name": "dogapi",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Datadog API Node.JS Client",
   "main": "lib/index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/brettlangdon/node-dogapi.git"
+    "url": "git://github.com/thetestpeople/node-dogapi"
   },
   "keywords": [
     "datadog",
