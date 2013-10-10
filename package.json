@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/thetestpeople/node-dogapi"
+    "url": "git://github.com/brettlangdon/node-dogapi"
   },
   "keywords": [
     "datadog",
@@ -19,6 +19,9 @@
     "dog api"
   ],
   "author": "Brett Langdon <brett@blangdon.com> (http://brett.is)",
+  "contributors":[
+    "colinjonesx (http://www.thetestpeople.com)"
+  ],
   "license": "MIT",
   "readmeFilename": "README.md",
   "gitHead": "f388635a5ab4f4da25702dc0999385d437bdf2bc",
