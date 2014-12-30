@@ -20,12 +20,13 @@
   ],
   "author": "Brett Langdon <brett@blangdon.com> (http://brett.is)",
   "contributors":[
-    "colinjonesx (http://www.thetestpeople.com)"
+    "colinjonesx (http://www.thetestpeople.com)",
+    "dalehamel (http://blog.srvthe.net)"
   ],
   "license": "MIT",
   "readmeFilename": "README.md",
   "gitHead": "f388635a5ab4f4da25702dc0999385d437bdf2bc",
   "dependencies": {
-    "extend": "~1.1.3"
+    "extend": "^2.0.0"
   }
 }
