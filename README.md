@@ -117,6 +117,8 @@ DD_API_KEY=YOUR_KEY_HERE DD_APP_KEY=YOUR_KEY_HERE node app.js
   * method to remove tags for a given `host`
 * `dogapi.add_snapshot(snapshot, [callback])`
   * method used to take a snapshot of a datadog graph
+* `dogapi.add_snapshot_from_def(snapshot, [callback])`
+  * method used to take a snapshot of a datadog graph
 
 ## Sample Usage:
 
