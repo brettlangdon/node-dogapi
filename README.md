@@ -121,6 +121,8 @@ DD_API_KEY=YOUR_KEY_HERE DD_APP_KEY=YOUR_KEY_HERE node app.js
   * method used to take a snapshot of a datadog graph
 * `dogapi.snapshot_status(snapshot_url, [callback])`
   * method used to check the status of a datadog snapshot
+* `dogapi.service_check(status, check, host, [[extra], [callback]])`
+  * method used to post a new service check
 
 ## Sample Usage:
 
