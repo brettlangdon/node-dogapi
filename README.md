@@ -49,6 +49,8 @@ DD_API_KEY=YOUR_KEY_HERE DD_APP_KEY=YOUR_KEY_HERE node app.js
 
 `dogapi` implements all available functions in the official datadog api, http://docs.datadoghq.com/api/.
 
+* `dogapi.constants.STATUSES`
+  * `OK`, `WARNING`, `CRITICAL`, `UNKNOWN`
 * `dogapi.stream(start, end, [[filter], callback])`
   * function used to retrieve all events that have occured between
 * `dogapi.polling_stream(interval, [[filter], callback])`
@@ -122,7 +124,7 @@ DD_API_KEY=YOUR_KEY_HERE DD_APP_KEY=YOUR_KEY_HERE node app.js
 * `dogapi.snapshot_status(snapshot_url, [callback])`
   * method used to check the status of a datadog snapshot
 * `dogapi.service_check(status, check, host, [[extra], [callback]])`
-  * method used to post a new service check
+  * method used to post a new service check (see `dogapi.constants.STATUSES`)
 
 ## Sample Usage:
 
