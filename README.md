@@ -125,6 +125,16 @@ DD_API_KEY=YOUR_KEY_HERE DD_APP_KEY=YOUR_KEY_HERE node app.js
   * method used to check the status of a datadog snapshot
 * `dogapi.service_check(status, check, host, [[extra], [callback]])`
   * method used to post a new service check (see `dogapi.constants.STATUSES`)
+* `dogapi.schedule_downtime(scope, [options], [callback])`
+  * method to schedule a new downtime
+* `dogapi.update_downtime(downtime_id, [options], [callback])`
+  * method to update an existing downtime
+* `dogapi.cancel_downtime(downtime_id, [callback])`
+  * method to cancel an existing downtime
+* `dogapi.get_downtime(downtime_id, [callback])`
+  * method to get an existing downtime
+* `dogapi.get_all_downtimes([current_only], [callback])`
+  * method to get all downtimes
 
 ## Sample Usage:
 
