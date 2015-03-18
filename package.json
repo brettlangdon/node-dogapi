@@ -19,7 +19,7 @@
     "dog api"
   ],
   "author": "Brett Langdon <brett@blangdon.com> (http://brett.is)",
-  "contributors":[
+  "contributors": [
     "colinjonesx (http://www.thetestpeople.com)",
     "dalehamel (http://blog.srvthe.net)"
   ],
@@ -28,5 +28,11 @@
   "gitHead": "f388635a5ab4f4da25702dc0999385d437bdf2bc",
   "dependencies": {
     "extend": "^2.0.0"
+  },
+  "devDependencies": {
+    "docast": "^0.1.1",
+    "glob": "^5.0.3",
+    "js-yaml": "^3.2.7",
+    "marked": "^0.3.3"
   }
 }
