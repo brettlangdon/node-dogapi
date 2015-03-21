@@ -18,6 +18,8 @@ document.addEventListener("DOMContentLoaded", function(){hljs.initHighlightingOn
 <ul class="nav nav-pills">
 <li role=""><a href="#event">event</a>
 </li>
+<li role=""><a href="#graph">graph</a>
+</li>
 <li role=""><a href="#host">host</a>
 </li>
 <li role=""><a href="#infrastructure">infrastructure</a>
@@ -168,6 +170,52 @@ document.addEventListener("DOMContentLoaded", function(){hljs.initHighlightingOn
  dogapi.event.query(then, now, parameters, function(err, res){
    console.dir(res);
  });
+</code></pre>
+</div>
+</div>
+</section>
+<section id="graph" class="col-sm-12">
+<div class="row">
+<h2 class="bg-primary" style="text-indent:1rem">graph</h2></div>
+<ul class="nav nav-pills">
+<li role"presentation"><a href="#graph-snapshot">snapshot</a></li>
+</ul>
+<div class="function row" id="graph-snapshot">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">snapshot(query, from, to, eventQuery, callback)</h3>
+<div class="col-md-6">
+<p>take a snapshot of a metric query</p>
+<h4>Parameters:</h4>
+<dl>
+<dt>query</dt>
+<dd><p>the metric query to use for the snapshot</p>
+</dd>
+<dt>from</dt>
+<dd><p>POSIX timestamp for the beginning of the query</p>
+</dd>
+<dt>to</dt>
+<dd><p>POSIX timestamp for the end of the query</p>
+</dd>
+<dt>eventQuery</dt>
+<dd><p><em>optional</em>, an event query to overlay event bands on the snapshot</p>
+</dd>
+<dt>callback</dt>
+<dd><p>function(err, res)</p>
+</dd>
+</dl>
+</div>
+<div class="col-md-6">
+<pre><code class="lang-javascript">var dogapi = require(&quot;dogapi&quot;);
+var options = {
+  api_key: &quot;api_key&quot;,
+  app_key: &quot;app_key&quot;
+};
+dogapi.initialize(options);
+var query = &quot;system.cpu.idle{*}&quot;;
+var to = dogapi.now();
+var from = from - 3600;  // an hour ago
+dogapi.graph.snapshot(query, from, to, function(err, res){
+  console.dir(res);
+});
 </code></pre>
 </div>
 </div>
