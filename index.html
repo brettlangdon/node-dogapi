@@ -20,6 +20,8 @@ document.addEventListener("DOMContentLoaded", function(){hljs.initHighlightingOn
 </li>
 <li role=""><a href="#metric">metric</a>
 </li>
+<li role=""><a href="#serviceCheck">serviceCheck</a>
+</li>
 <li role=""><a href="#tag">tag</a>
 </li>
 <li role=""><a href="#client">client</a>
@@ -291,6 +293,57 @@ is given &quot;now&quot; is used as the timestamp</p>
  var query = &quot;system.cpu.idle{*}by{host}&quot;;
  dogapi.metric.query(then, now, query, function(err, res){
    console.dir(res);
+ });
+</code></pre>
+</div>
+</div>
+</section>
+<section id="serviceCheck" class="col-sm-12">
+<div class="row">
+<h2 class="bg-primary" style="text-indent:1rem">serviceCheck</h2></div>
+<ul class="nav nav-pills">
+<li role"presentation"><a href="#serviceCheck-check">check</a></li>
+</ul>
+<div class="function row" id="serviceCheck-check">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">check(check, hostName, status, parameters, callback)</h3>
+<div class="col-md-6">
+<p>post an update to a service check</p>
+<h4>Parameters:</h4>
+<dl>
+<dt>check</dt>
+<dd><p>the check name (e.g. &quot;app.ok&quot;)</p>
+</dd>
+<dt>hostName</dt>
+<dd><p>the name of the host submitting the check</p>
+</dd>
+<dt>status</dt>
+<dd><p>one of <code>dogapi.OK</code>, <code>dogapi.WARNING</code>, <code>dogapi.CRITICAL</code> or <code>dogapi.UNKNOWN</code></p>
+</dd>
+<dt>parameters</dt>
+<dd><p><em>optional</em>, an object containing any of the following</p>
+<ul>
+<li>timestamp: POSIX timestamp for when the check happened</li>
+<li>message: string message to accompany the check</li>
+<li>tags: an array of &quot;tag:value&quot;&#39;s associated with the check</li>
+</ul>
+</dd>
+<dt>callback</dt>
+<dd><p>function(err, res)</p>
+</dd>
+</dl>
+</div>
+<div class="col-md-6">
+<pre><code class="lang-javascript"> var dogapi = require(&quot;dogapi&quot;);
+ var options = {
+   api_key: &quot;api_key&quot;,
+   app_key: &quot;app_key&quot;
+ };
+ dogapi.initialize(options);
+ var check = &quot;app.ok&quot;;
+ var hostName = &quot;some.machine&quot;;
+ dogapi.serviceCheck.check(
+   check, hostName, dogapi.WARNING, function(err, res){
+     console.dir(res);
  });
 </code></pre>
 </div>
