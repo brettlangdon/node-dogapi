@@ -181,7 +181,7 @@ document.addEventListener("DOMContentLoaded", function(){hljs.initHighlightingOn
 <h4>Parameters:</h4>
 <dl>
 <dt>query</dt>
-<dd><p>the query to use for search see <a href="http://docs.datadoghq.com/api/#search">search docs</a>
+<dd><p>the query to use for search see <a href="http://docs.datadoghq.com/api/#search">datadog docs</a>
 for examples of the query (e.g. &quot;hosts:database&quot;, &quot;metrics:system&quot; or &quot;test&quot;)</p>
 </dd>
 <dt>callback</dt>
@@ -396,7 +396,7 @@ dogapi.metric.query(then, now, query, function(err, res){
 <li role"presentation"><a href="#tag-get">get</a></li>
 <li role"presentation"><a href="#tag-create">create</a></li>
 <li role"presentation"><a href="#tag-update">update</a></li>
-<li role"presentation"><a href="#tag-delete_tags">delete_tags</a></li>
+<li role"presentation"><a href="#tag-remove">remove</a></li>
 </ul>
 <div class="function row" id="tag-get_all">
 <h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">get_all(source, callback)</h3>
@@ -525,8 +525,8 @@ dogapi.tag.update(&quot;host.name&quot;, function(err, results){
 </code></pre>
 </div>
 </div>
-<div class="function row" id="tag-delete_tags">
-<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">delete_tags(hostname, source, callback)</h3>
+<div class="function row" id="tag-remove">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">remove(hostname, source, callback)</h3>
 <div class="col-md-6">
 <p>delete the host tags for the provided host name or host id</p>
 <h4>Parameters:</h4>
@@ -549,7 +549,7 @@ var options = {
   app_key: &quot;app_key&quot;
 };
 dogapi.initialize(options);
-dogapi.tag.delete(&quot;host.name&quot;, function(err, results){
+dogapi.tag.remove(&quot;host.name&quot;, function(err, results){
   console.dir(results);
 });
 </code></pre>
