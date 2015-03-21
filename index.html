@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="text/javascript" src="//highlightjs.org/static/highlight.pack.js">
+</script>
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function(){hljs.initHighlightingOnLoad();});</script>
+<link rel="stylesheet" href="//highlightjs.org/static/styles/github.css" />
+<link rel="stylesheet" href="//getbootstrap.com/dist/css/bootstrap.min.css" />
+</head>
+<body>
+<a class="btn btn-default" href="#top" style="position:fixed;bottom:1rem;right:1rem;z-index:100000;color:#000">Jump To Top</a>
+<div id="top" class="container-fluid">
+<div class="row">
+<div class="col-sm-12">
+<h1>Node Dogapi</h1>
+<ul class="nav nav-pills">
+<li role=""><a href="#event">event</a>
+</li>
+<li role=""><a href="#metric">metric</a>
+</li>
+<li role=""><a href="#tag">tag</a>
+</li>
+<li role=""><a href="#client">client</a>
+</li>
+<li role=""><a href="#dogapi">dogapi</a>
+</li>
+</ul>
+</div>
+</div>
+<section id="event" class="col-sm-12">
+<div class="row">
+<h2 class="bg-primary" style="text-indent:1rem">event</h2></div>
+<ul class="nav nav-pills">
+<li role"presentation"><a href="#event-create">create</a></li>
+<li role"presentation"><a href="#event-get">get</a></li>
+<li role"presentation"><a href="#event-query">query</a></li>
+</ul>
+<div class="function row" id="event-create">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">create(title, text, properties, callback)</h3>
+<div class="col-md-6">
+<p>create a new event</p>
+<h4>Parameters:</h4>
+<dl>
+<dt>title</dt>
+<dd><p>the title of the event</p>
+</dd>
+<dt>text</dt>
+<dd><p>the body of the event</p>
+</dd>
+<dt>properties</dt>
+<dd><p>an <em>optional</em> object continaing any of the following additional optional properties</p>
+<ul>
+<li>date_happened: POSIX timestamp of when it happened</li>
+<li>priority: &quot;normal&quot; or &quot;low&quot; [defualt: &quot;normal&quot;]</li>
+<li>host: the host name to associate with the event</li>
+<li>tags: array of &quot;tag:value&quot;&#39;s to associate with the event</li>
+<li>alert_type: &quot;error&quot;, &quot;warning&quot;, &quot;info&quot; or &quot;success&quot; [defualt: &quot;info&quot;]</li>
+<li>aggregation_key: an arbitrary string used to aggregate like events</li>
+<li>source_type_name: options: &quot;nagios&quot;, &quot;hudson&quot;, &quot;jenkins&quot;, &quot;user&quot;, &quot;my apps&quot;, &quot;feed&quot;, &quot;chef&quot;, &quot;puppet&quot;, &quot;git&quot;, &quot;bitbucket&quot;, &quot;fabric&quot;, &quot;capistrano&quot;</li>
+</ul>
+</dd>
+<dt>callback</dt>
+<dd><p>function(err, res)</p>
+</dd>
+</dl>
+</div>
+<div class="col-md-6">
+<pre><code class="lang-javascript"> var dogapi = require(&quot;dogapi&quot;);
+ var options = {
+   api_key: &quot;api_key&quot;,
+   app_key: &quot;app_key&quot;
+ };
+ dogapi.initialize(options);
+ var title = &quot;some new event&quot;;
+ var text = &quot;IT HAPPENED!&quot;;
+ dogapi.event.create(title, text, function(err, res){
+   console.dir(res);
+ });
+ title = &quot;another event&quot;;
+ text = &quot;IT HAPPENED AGAIN!&quot;;
+ var properties = {
+   tags: [&quot;some:tag&quot;],
+   alert_type: &quot;error&quot;
+ };
+ dogapi.event.create(title, text, properties, function(err, res){
+   console.dir(res);
+ });
+</code></pre>
+</div>
+</div>
+<div class="function row" id="event-get">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">get(eventId, callback)</h3>
+<div class="col-md-6">
+<p>get event details from the provided event id</p>
+<h4>Parameters:</h4>
+<dl>
+<dt>eventId</dt>
+<dd><p>the id of the event to fetch</p>
+</dd>
+<dt>callback</dt>
+<dd><p>function(err, res)</p>
+</dd>
+</dl>
+</div>
+<div class="col-md-6">
+<pre><code class="lang-javascript"> var dogapi = require(&quot;dogapi&quot;);
+ var options = {
+   api_key: &quot;api_key&quot;,
+   app_key: &quot;app_key&quot;
+ };
+ dogapi.initialize(options);
+ dogapi.event.get(10005, function(err, res){
+   console.dir(res);
+ });
+</code></pre>
+</div>
+</div>
+<div class="function row" id="event-query">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">query(start, end, parameters, callback)</h3>
+<div class="col-md-6">
+<p>query the event stream</p>
+<h4>Parameters:</h4>
+<dl>
+<dt>start</dt>
+<dd><p>POSIX timestamp for start of query</p>
+</dd>
+<dt>end</dt>
+<dd><p>POSIX timestamp for end of query</p>
+</dd>
+<dt>parameters</dt>
+<dd><p><em>optional</em> parameters to use for the query</p>
+<ul>
+<li>priority: &quot;low&quot; or &quot;normal&quot;</li>
+<li>sources: comma separated list of sources (e.g. &quot;jenkins,user&quot;)</li>
+<li>tags: comma separated list of tags (e.g. &quot;tag:value1,tag:value2&quot;)</li>
+</ul>
+</dd>
+<dt>callback</dt>
+<dd><p>function(err, res)</p>
+</dd>
+</dl>
+</div>
+<div class="col-md-6">
+<pre><code class="lang-javascript"> var dogapi = require(&quot;dogapi&quot;);
+ var options = {
+   api_key: &quot;api_key&quot;,
+   app_key: &quot;app_key&quot;
+ };
+ dogapi.initialize(options);
+ var now = parseInt(new Date().getTime() / 1000);
+ var then = now - 3600; // an hour ago
+ var parameters = {
+   tags: &quot;some:tag&quot;,
+   sources: &quot;jenkins&quot;
+ };
+ dogapi.event.query(then, now, parameters, function(err, res){
+   console.dir(res);
+ });
+</code></pre>
+</div>
+</div>
+</section>
+<section id="metric" class="col-sm-12">
+<div class="row">
+<h2 class="bg-primary" style="text-indent:1rem">metric</h2></div>
+<ul class="nav nav-pills">
+<li role"presentation"><a href="#metric-send">send</a></li>
+<li role"presentation"><a href="#metric-send_all">send_all</a></li>
+<li role"presentation"><a href="#metric-query">query</a></li>
+</ul>
+<div class="function row" id="metric-send">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">send(metric, points, extra, callback)</h3>
+<div class="col-md-6">
+<p>submit a new metric</p>
+<h4>Parameters:</h4>
+<dl>
+<dt>metric</dt>
+<dd><p>the metric name</p>
+</dd>
+<dt>points</dt>
+<dd><p>single datapoint or array of [timestamp, datapoint], if a single point
+is given &quot;now&quot; is used as the timestamp</p>
+</dd>
+<dt>extra</dt>
+<dd><p><em>optional</em>, object which can contain the following keys</p>
+<ul>
+<li>host: the host source of the metric</li>
+<li>tags: array of &quot;tag:value&quot;&#39;s to use for the metric</li>
+<li>metric_type: which metric type to use (&quot;gauge&quot; or &quot;counter&quot;) [default: gauge]</li>
+</ul>
+</dd>
+<dt>callback</dt>
+<dd><p>function(err, res)</p>
+</dd>
+</dl>
+</div>
+<div class="col-md-6">
+<pre><code class="lang-javascript"> var dogapi = require(&quot;dogapi&quot;);
+ var options = {
+   api_key: &quot;api_key&quot;,
+   app_key: &quot;app_key&quot;
+ };
+ dogapi.initialize(options);
+ dogapi.metric.send(&quot;my.metric&quot;, 1000, function(err, results){
+   console.dir(results);
+ });
+ var now = parseInt(new Date().getTime() / 1000);
+ dogapi.metric.send(&quot;my.metric&quot;, [now, 1000], function(err, results){
+   console.dir(results);
+ });
+</code></pre>
+</div>
+</div>
+<div class="function row" id="metric-send_all">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">send_all(metrics, callback)</h3>
+<div class="col-md-6">
+<p>send a list of metrics</p>
+<h4>Parameters:</h4>
+<dl>
+<dt>metrics</dt>
+<dd><p>an array of metrics where each element is an object with the following keys</p>
+<ul>
+<li>metric: the name of the metric</li>
+<li>points: a single datapoint or an array of [timestamp, datapoint] (same as <code>dogapi.metric.send</code>)</li>
+<li>tags: an array of &quot;tag:value&quot;&#39;s</li>
+<li>host: the source hostname to use for the metrics</li>
+<li>metric_type: the type of metric to use (&quot;gauge&quot; or &quot;counter&quot;) [default: gauge]</li>
+</ul>
+</dd>
+<dt>callback</dt>
+<dd><p>function(err, res)</p>
+</dd>
+</dl>
+</div>
+<div class="col-md-6">
+<pre><code class="lang-javascript"> var dogapi = require(&quot;dogapi&quot;);
+ var options = {
+   api_key: &quot;api_key&quot;,
+   app_key: &quot;app_key&quot;
+ };
+ dogapi.initialize(options);
+ var now = parseInt(new Date().getTime() / 1000);
+ var metrics = [
+   {
+     metric: &quot;my.metric&quot;,
+     points: [now, 1000],
+     tags: [&quot;tag:value&quot;]
+   },
+   {
+     metric: &quot;another.metric&quot;,
+     points: 1000
+   }
+ ];
+ dogapi.metric.send_all(metrics, function(err, results){
+   console.dir(results);
+ });
+</code></pre>
+</div>
+</div>
+<div class="function row" id="metric-query">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">query(from, to, query, callback)</h3>
+<div class="col-md-6">
+<p>make a metric query</p>
+<h4>Parameters:</h4>
+<dl>
+<dt>from</dt>
+<dd><p>POSIX timestamp for start of query</p>
+</dd>
+<dt>to</dt>
+<dd><p>POSIX timestamp for end of query</p>
+</dd>
+<dt>query</dt>
+<dd><p>the string query to perform (e.g. &quot;system.cpu.idle{*}by{host}&quot;)</p>
+</dd>
+<dt>callback</dt>
+<dd><p>function(err, res)</p>
+</dd>
+</dl>
+</div>
+<div class="col-md-6">
+<pre><code class="lang-javascript"> var dogapi = require(&quot;dogapi&quot;);
+ var options = {
+   api_key: &quot;api_key&quot;,
+   app_key: &quot;app_key&quot;
+ };
+ dogapi.initialize(options);
+ var now = parseInt(new Date().getTime() / 1000);
+ var then = now - 3600; // one hour ago
+ var query = &quot;system.cpu.idle{*}by{host}&quot;;
+ dogapi.metric.query(then, now, query, function(err, res){
+   console.dir(res);
+ });
+</code></pre>
+</div>
+</div>
+</section>
+<section id="tag" class="col-sm-12">
+<div class="row">
+<h2 class="bg-primary" style="text-indent:1rem">tag</h2></div>
+<ul class="nav nav-pills">
+<li role"presentation"><a href="#tag-get_all">get_all</a></li>
+<li role"presentation"><a href="#tag-get">get</a></li>
+<li role"presentation"><a href="#tag-create">create</a></li>
+<li role"presentation"><a href="#tag-update">update</a></li>
+<li role"presentation"><a href="#tag-delete_tags">delete_tags</a></li>
+</ul>
+<div class="function row" id="tag-get_all">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">get_all(source, callback)</h3>
+<div class="col-md-6">
+<p>get all host tags</p>
+<h4>Parameters:</h4>
+<dl>
+<dt>source</dt>
+<dd><p><em>optional</em>, only show tags for a particular source [default: null]</p>
+</dd>
+<dt>callback</dt>
+<dd><p>function callback(err, res)</p>
+</dd>
+</dl>
+</div>
+<div class="col-md-6">
+<pre><code class="lang-javascript">var dogapi = require(&quot;dogapi&quot;);
+var options = {
+  api_key: &quot;api_key&quot;,
+  app_key: &quot;app_key&quot;
+};
+dogapi.initialize(options);
+dogapi.tag.get_all(function(err, results){
+  console.dir(results);
+});
+</code></pre>
+</div>
+</div>
+<div class="function row" id="tag-get">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">get(hostname, options, callback)</h3>
+<div class="col-md-6">
+<p>get the host tags for a provided host name or host id</p>
+<h4>Parameters:</h4>
+<dl>
+<dt>hostname</dt>
+<dd><p>the hostname or host id</p>
+</dd>
+<dt>options</dt>
+<dd><p><em>optional</em>, an object of options for the query allowing the following</p>
+<ul>
+<li>source: the source of the tags (e.g. chef, puppet, users, etc) [default: null]</li>
+<li>by_source: whether or not to group the results by source [default: false]</li>
+</ul>
+</dd>
+<dt>callback</dt>
+<dd><p>function callback(err, res)</p>
+</dd>
+</dl>
+</div>
+<div class="col-md-6">
+<pre><code class="lang-javascript">var dogapi = require(&quot;dogapi&quot;);
+var options = {
+  api_key: &quot;api_key&quot;,
+  app_key: &quot;app_key&quot;
+};
+dogapi.initialize(options);
+dogapi.tag.get(&quot;host.name&quot;, function(err, results){
+  console.dir(results);
+});
+</code></pre>
+</div>
+</div>
+<div class="function row" id="tag-create">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">create(hostname, tags, source, callback)</h3>
+<div class="col-md-6">
+<p>assign new host tags to the provided host name or host id</p>
+<h4>Parameters:</h4>
+<dl>
+<dt>hostname</dt>
+<dd><p>the hostname or host id</p>
+</dd>
+<dt>tags</dt>
+<dd><p>list of <code>&lt;tag&gt;:&lt;value&gt;</code> tags to assign to the server</p>
+</dd>
+<dt>source</dt>
+<dd><p><em>optional</em>, the source of the tags (e.g. chef, puppet, etc) [default: users]</p>
+</dd>
+<dt>callback</dt>
+<dd><p>function callback(err, res)</p>
+</dd>
+</dl>
+</div>
+<div class="col-md-6">
+<pre><code class="lang-javascript">var dogapi = require(&quot;dogapi&quot;);
+var options = {
+  api_key: &quot;api_key&quot;,
+  app_key: &quot;app_key&quot;
+};
+dogapi.initialize(options);
+dogapi.tag.create(&quot;host.name&quot;, [&quot;role:webserver&quot;], function(err, results){
+  console.dir(results);
+});
+</code></pre>
+</div>
+</div>
+<div class="function row" id="tag-update">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">update(hostname, tags, source, callback)</h3>
+<div class="col-md-6">
+<p>update the host tags for the provided host name or host id</p>
+<h4>Parameters:</h4>
+<dl>
+<dt>hostname</dt>
+<dd><p>the hostname or host id</p>
+</dd>
+<dt>tags</dt>
+<dd><p>list of <code>&lt;tag&gt;:&lt;value&gt;</code> tags to assign to the server</p>
+</dd>
+<dt>source</dt>
+<dd><p><em>optional</em>, the source of the tags (e.g. chef, puppet, etc) [default: users]</p>
+</dd>
+<dt>callback</dt>
+<dd><p>function callback(err, res)</p>
+</dd>
+</dl>
+</div>
+<div class="col-md-6">
+<pre><code class="lang-javascript">var dogapi = require(&quot;dogapi&quot;);
+var options = {
+  api_key: &quot;api_key&quot;,
+  app_key: &quot;app_key&quot;
+};
+dogapi.initialize(options);
+dogapi.tag.update(&quot;host.name&quot;, function(err, results){
+  console.dir(results);
+});
+</code></pre>
+</div>
+</div>
+<div class="function row" id="tag-delete_tags">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">delete_tags(hostname, source, callback)</h3>
+<div class="col-md-6">
+<p>delete the host tags for the provided host name or host id</p>
+<h4>Parameters:</h4>
+<dl>
+<dt>hostname</dt>
+<dd><p>the hostname or host id</p>
+</dd>
+<dt>source</dt>
+<dd><p><em>optional</em>, the source of the tags (e.g. chef, puppet, etc) [default: users]</p>
+</dd>
+<dt>callback</dt>
+<dd><p>function callback(err, res)</p>
+</dd>
+</dl>
+</div>
+<div class="col-md-6">
+<pre><code class="lang-javascript">var dogapi = require(&quot;dogapi&quot;);
+var options = {
+  api_key: &quot;api_key&quot;,
+  app_key: &quot;app_key&quot;
+};
+dogapi.initialize(options);
+dogapi.tag.delete(&quot;host.name&quot;, function(err, results){
+  console.dir(results);
+});
+</code></pre>
+</div>
+</div>
+</section>
+<section id="client" class="col-sm-12">
+<div class="row">
+<h2 class="bg-primary" style="text-indent:1rem">client</h2></div>
+<ul class="nav nav-pills">
+<li role"presentation"><a href="#client-client">client</a></li>
+<li role"presentation"><a href="#client-request">request</a></li>
+</ul>
+<div class="function row" id="client-client">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">client()</h3>
+<div class="col-md-6">
+<p>the constructor for <em>client</em> object</p>
+</div>
+<div class="col-md-6">
+<p>See <a href="#client-request">client.request</a></p>
+</div>
+</div>
+<div class="function row" id="client-request">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">request(method, path, params, callback)</h3>
+<div class="col-md-6">
+<p>used to make a raw request to the datadog api</p>
+<h4>Parameters:</h4>
+<dl>
+<dt>method</dt>
+<dd><p>http method GET, POST, PUT, DELETE</p>
+</dd>
+<dt>path</dt>
+<dd><p>the api url path e.g. /tags/hosts</p>
+</dd>
+<dt>params</dt>
+<dd><p>an object which allows the keys <code>query</code> or <code>body</code></p>
+</dd>
+<dt>callback</dt>
+<dd><p>function to call on success/failure callback(err, result)</p>
+</dd>
+</dl>
+</div>
+<div class="col-md-6">
+<pre><code class="lang-javascript">var dogapi = require(&quot;dogapi&quot;);
+var options = {
+  api_key: &quot;api_key&quot;,
+  app_key: &quot;app_key&quot;
+};
+dogapi.initialize(options);
+dogapi.client.request(&quot;GET&quot;, &quot;/url/path&quot;, {}, function(err, results){
+  console.dir(results);
+});
+</code></pre>
+</div>
+</div>
+</section>
+<section id="dogapi" class="col-sm-12">
+<div class="row">
+<h2 class="bg-primary" style="text-indent:1rem">dogapi</h2></div>
+<ul class="nav nav-pills">
+<li role"presentation"><a href="#dogapi-initialize">initialize</a></li>
+</ul>
+<div class="function row" id="dogapi-initialize">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">initialize(options)</h3>
+<div class="col-md-6">
+<h4>Parameters:</h4>
+<dl>
+<dt>options</dt>
+<dd><p>An object which allows you to override the default set parameters for interacting
+with the datadog api. The available options are.</p>
+<ul>
+<li>api_key: your api key</li>
+<li>app_key: your app key</li>
+<li>api_version: the version of the api [default: <code>v1</code>]</li>
+<li>api_host: the host to call [default: <code>api.datadoghq.com</code>]</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="col-md-6">
+<pre><code class="lang-javascript">var dogapi = require(&quot;dogapi&quot;);
+var options = {
+  api_key: &quot;&lt;API_KEY_HERE&gt;&quot;,
+  app_key: &quot;&lt;APP_KEY_HERE&gt;&quot;
+};
+dogapi.initialize(options);
+dogapi.event.create(...);
+</code></pre>
+</div>
+</div>
+</section>
+</div>
+<a href="https://github.com/brettlangdon/node-dogapi"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a></body></html>
