@@ -18,6 +18,8 @@ document.addEventListener("DOMContentLoaded", function(){hljs.initHighlightingOn
 <ul class="nav nav-pills">
 <li role=""><a href="#event">event</a>
 </li>
+<li role=""><a href="#infrastructure">infrastructure</a>
+</li>
 <li role=""><a href="#metric">metric</a>
 </li>
 <li role=""><a href="#serviceCheck">serviceCheck</a>
@@ -166,6 +168,41 @@ document.addEventListener("DOMContentLoaded", function(){hljs.initHighlightingOn
 </div>
 </div>
 </section>
+<section id="infrastructure" class="col-sm-12">
+<div class="row">
+<h2 class="bg-primary" style="text-indent:1rem">infrastructure</h2></div>
+<ul class="nav nav-pills">
+<li role"presentation"><a href="#infrastructure-search">search</a></li>
+</ul>
+<div class="function row" id="infrastructure-search">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">search(query, callback)</h3>
+<div class="col-md-6">
+<p>search for metrics or hosts</p>
+<h4>Parameters:</h4>
+<dl>
+<dt>query</dt>
+<dd><p>the query to use for search see <a href="http://docs.datadoghq.com/api/#search">search docs</a>
+for examples of the query (e.g. &quot;hosts:database&quot;, &quot;metrics:system&quot; or &quot;test&quot;)</p>
+</dd>
+<dt>callback</dt>
+<dd><p>function(err, res)</p>
+</dd>
+</dl>
+</div>
+<div class="col-md-6">
+<pre><code class="lang-javascript">var dogapi = require(&quot;dogapi&quot;);
+var options = {
+  api_key: &quot;api_key&quot;,
+  app_key: &quot;app_key&quot;
+};
+dogapi.initialize(options);
+dogapi.infrastructure.search(&quot;hosts:database&quot;, function(err, res){
+  console.dir(res);
+});
+</code></pre>
+</div>
+</div>
+</section>
 <section id="metric" class="col-sm-12">
 <div class="row">
 <h2 class="bg-primary" style="text-indent:1rem">metric</h2></div>
@@ -201,19 +238,19 @@ is given &quot;now&quot; is used as the timestamp</p>
 </dl>
 </div>
 <div class="col-md-6">
-<pre><code class="lang-javascript"> var dogapi = require(&quot;dogapi&quot;);
- var options = {
-   api_key: &quot;api_key&quot;,
-   app_key: &quot;app_key&quot;
- };
- dogapi.initialize(options);
- dogapi.metric.send(&quot;my.metric&quot;, 1000, function(err, results){
-   console.dir(results);
- });
- var now = parseInt(new Date().getTime() / 1000);
- dogapi.metric.send(&quot;my.metric&quot;, [now, 1000], function(err, results){
-   console.dir(results);
- });
+<pre><code class="lang-javascript">var dogapi = require(&quot;dogapi&quot;);
+var options = {
+  api_key: &quot;api_key&quot;,
+  app_key: &quot;app_key&quot;
+};
+dogapi.initialize(options);
+dogapi.metric.send(&quot;my.metric&quot;, 1000, function(err, results){
+  console.dir(results);
+});
+var now = parseInt(new Date().getTime() / 1000);
+dogapi.metric.send(&quot;my.metric&quot;, [now, 1000], function(err, results){
+  console.dir(results);
+});
 </code></pre>
 </div>
 </div>
@@ -239,27 +276,27 @@ is given &quot;now&quot; is used as the timestamp</p>
 </dl>
 </div>
 <div class="col-md-6">
-<pre><code class="lang-javascript"> var dogapi = require(&quot;dogapi&quot;);
- var options = {
-   api_key: &quot;api_key&quot;,
-   app_key: &quot;app_key&quot;
- };
- dogapi.initialize(options);
- var now = parseInt(new Date().getTime() / 1000);
- var metrics = [
-   {
-     metric: &quot;my.metric&quot;,
-     points: [now, 1000],
-     tags: [&quot;tag:value&quot;]
-   },
-   {
-     metric: &quot;another.metric&quot;,
-     points: 1000
-   }
- ];
- dogapi.metric.send_all(metrics, function(err, results){
-   console.dir(results);
- });
+<pre><code class="lang-javascript">var dogapi = require(&quot;dogapi&quot;);
+var options = {
+  api_key: &quot;api_key&quot;,
+  app_key: &quot;app_key&quot;
+};
+dogapi.initialize(options);
+var now = parseInt(new Date().getTime() / 1000);
+var metrics = [
+  {
+    metric: &quot;my.metric&quot;,
+    points: [now, 1000],
+    tags: [&quot;tag:value&quot;]
+  },
+  {
+    metric: &quot;another.metric&quot;,
+    points: 1000
+  }
+];
+dogapi.metric.send_all(metrics, function(err, results){
+  console.dir(results);
+});
 </code></pre>
 </div>
 </div>
@@ -284,18 +321,18 @@ is given &quot;now&quot; is used as the timestamp</p>
 </dl>
 </div>
 <div class="col-md-6">
-<pre><code class="lang-javascript"> var dogapi = require(&quot;dogapi&quot;);
- var options = {
-   api_key: &quot;api_key&quot;,
-   app_key: &quot;app_key&quot;
- };
- dogapi.initialize(options);
- var now = parseInt(new Date().getTime() / 1000);
- var then = now - 3600; // one hour ago
- var query = &quot;system.cpu.idle{*}by{host}&quot;;
- dogapi.metric.query(then, now, query, function(err, res){
-   console.dir(res);
- });
+<pre><code class="lang-javascript">var dogapi = require(&quot;dogapi&quot;);
+var options = {
+  api_key: &quot;api_key&quot;,
+  app_key: &quot;app_key&quot;
+};
+dogapi.initialize(options);
+var now = parseInt(new Date().getTime() / 1000);
+var then = now - 3600; // one hour ago
+var query = &quot;system.cpu.idle{*}by{host}&quot;;
+dogapi.metric.query(then, now, query, function(err, res){
+  console.dir(res);
+});
 </code></pre>
 </div>
 </div>
