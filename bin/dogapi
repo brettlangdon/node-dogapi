@@ -44,7 +44,7 @@ if(command === "now"){
 } else if(command === "then" && args._.length > 3){
     console.log(dogapi.now() - parseInt(args._[args._.length - 1]));
 } else if(dogapi.hasOwnProperty(command)){
-    if(subcommand && dogapi[command].hasOwnProperty(subcomand)){
+    if(subcommand && dogapi[command].hasOwnProperty(subcommand)){
         dogapi[command].handleCli(subcommand, args, function(err, res){
             if(err){
                 console.error(err);
