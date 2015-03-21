@@ -12,6 +12,7 @@ dogapi.initialize(config);
 var usage = [
     "Usage:",
     "${command} --help",
+    "${command} <command> --help",
     "${command} --version",
     "${command} now",
     "${command} then <seconds-ago>"
