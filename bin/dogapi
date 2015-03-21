@@ -40,6 +40,11 @@ var args = minimist(process.argv);
 var command = args._[2];
 var subcommand = args._[3];
 
+// this is the one unusual case
+if(command === "servicecheck"){
+    command = "serviceCheck";
+}
+
 if(command === "now"){
     console.log(dogapi.now());
 } else if(command === "then" && args._.length > 3){
