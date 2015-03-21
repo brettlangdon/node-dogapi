@@ -7,6 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "docs": "node ./docs/create.js > index.html"
   },
+  "bin": {
+    "dogapi": "bin/dogapi"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/brettlangdon/node-dogapi"
@@ -28,7 +31,9 @@
   "readmeFilename": "README.md",
   "gitHead": "f388635a5ab4f4da25702dc0999385d437bdf2bc",
   "dependencies": {
-    "extend": "^2.0.0"
+    "extend": "^2.0.0",
+    "minimist": "^1.1.1",
+    "rc": "^1.0.0"
   },
   "devDependencies": {
     "docast": "^0.1.1",
