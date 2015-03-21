@@ -22,6 +22,8 @@ document.addEventListener("DOMContentLoaded", function(){hljs.initHighlightingOn
 </li>
 <li role=""><a href="#metric">metric</a>
 </li>
+<li role=""><a href="#monitor">monitor</a>
+</li>
 <li role=""><a href="#serviceCheck">serviceCheck</a>
 </li>
 <li role=""><a href="#tag">tag</a>
@@ -337,6 +339,300 @@ dogapi.metric.query(then, now, query, function(err, res){
 </div>
 </div>
 </section>
+<section id="monitor" class="col-sm-12">
+<div class="row">
+<h2 class="bg-primary" style="text-indent:1rem">monitor</h2></div>
+<ul class="nav nav-pills">
+<li role"presentation"><a href="#monitor-create">create</a></li>
+<li role"presentation"><a href="#monitor-get">get</a></li>
+<li role"presentation"><a href="#monitor-getAll">getAll</a></li>
+<li role"presentation"><a href="#monitor-update">update</a></li>
+<li role"presentation"><a href="#monitor-remove">remove</a></li>
+<li role"presentation"><a href="#monitor-mute">mute</a></li>
+<li role"presentation"><a href="#monitor-muteAll">muteAll</a></li>
+<li role"presentation"><a href="#monitor-unmute">unmute</a></li>
+<li role"presentation"><a href="#monitor-unmuteAll">unmuteAll</a></li>
+</ul>
+<div class="function row" id="monitor-create">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">create(type, query, properties, callback)</h3>
+<div class="col-md-6">
+<p>create a new monitor</p>
+<h4>Parameters:</h4>
+<dl>
+<dt>type</dt>
+<dd><p>one of &quot;metric alert&quot; or &quot;service check&quot;</p>
+</dd>
+<dt>query</dt>
+<dd><p>the monitor query to use, you probably want to read datadog&#39;s <a href="http://docs.datadoghq.com/api/#monitor-create">monitor create</a> docs</p>
+</dd>
+<dt>properties</dt>
+<dd><p><em>optional</em>, an object containing any of the following</p>
+<ul>
+<li>name: the name of the monitor</li>
+<li>message: the message for the monitor</li>
+<li>options: an object, to see available options please see the <a href="http://docs.datadoghq.com/api/#monitor-create">monitor create</a> docs</li>
+</ul>
+</dd>
+<dt>callback</dt>
+<dd><p>function(err, res)</p>
+</dd>
+</dl>
+</div>
+<div class="col-md-6">
+<pre><code class="lang-javascript">var dogapi = require(&quot;dogapi&quot;);
+var options = {
+  api_key: &quot;api_key&quot;,
+  app_key: &quot;app_key&quot;
+};
+dogapi.initialize(options);
+var metricType = &quot;metric alert&quot;;
+var query = &quot;avg(last_1h):sum:system.net.bytes_rcvd{host:host0} &gt; 100&quot;;
+dogapi.monitor.create(metricType, query, function(err, res){
+  console.dir(res);
+});
+</code></pre>
+</div>
+</div>
+<div class="function row" id="monitor-get">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">get(monitorId, groupStates, callback)</h3>
+<div class="col-md-6">
+<p>get an existing monitor&#39;s details</p>
+<h4>Parameters:</h4>
+<dl>
+<dt>monitorId</dt>
+<dd><p>the id of the monitor</p>
+</dd>
+<dt>groupStates</dt>
+<dd><p>an array containing any of the following &quot;all&quot;, &quot;alert&quot;, &quot;warn&quot;, or &quot;no data&quot;</p>
+</dd>
+<dt>callback</dt>
+<dd><p>function(err, res)</p>
+</dd>
+</dl>
+</div>
+<div class="col-md-6">
+<pre><code class="lang-javascript">var dogapi = require(&quot;dogapi&quot;);
+var options = {
+  api_key: &quot;api_key&quot;,
+  app_key: &quot;app_key&quot;
+};
+dogapi.initialize(options);
+dogapi.monitor.get(1234, function(err, res){
+  console.dir(res);
+});
+</code></pre>
+</div>
+</div>
+<div class="function row" id="monitor-getAll">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">getAll(options, callback)</h3>
+<div class="col-md-6">
+<p>get all monitors</p>
+<h4>Parameters:</h4>
+<dl>
+<dt>options</dt>
+<dd><p><em>optional</em>, an object containing any of the following</p>
+<ul>
+<li>group_states: an array containing any of the following &quot;all&quot;, &quot;alert&quot;, &quot;warn&quot;, or &quot;no data&quot;</li>
+<li>tags: an array of &quot;tag:value&quot;&#39;s to filter on</li>
+</ul>
+</dd>
+<dt>callback</dt>
+<dd><p>function(err, res)</p>
+</dd>
+</dl>
+</div>
+<div class="col-md-6">
+<pre><code class="lang-javascript">var dogapi = require(&quot;dogapi&quot;);
+var options = {
+  api_key: &quot;api_key&quot;,
+  app_key: &quot;app_key&quot;
+};
+dogapi.initialize(options);
+dogapi.monitor.getAll(function(err, res){
+  console.dir(res);
+});
+</code></pre>
+</div>
+</div>
+<div class="function row" id="monitor-update">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">update(monitorId, query, properties, callback)</h3>
+<div class="col-md-6">
+<p>update a monitor&#39;s details</p>
+<h4>Parameters:</h4>
+<dl>
+<dt>monitorId</dt>
+<dd><p>the id of the monitor to edit</p>
+</dd>
+<dt>query</dt>
+<dd><p>the query that the monitor should have, see the <a href="http://docs.datadoghq.com/api/#monitor-create">monitor create</a> docs for more info</p>
+</dd>
+<dt>properties</dt>
+<dd><p><em>optional</em>, an object containing any of the following</p>
+<ul>
+<li>name: the name of the monitor</li>
+<li>message: the message for the monitor</li>
+<li>options: an object, to see available options please see the <a href="http://docs.datadoghq.com/api/#monitor-create">monitor create</a> docs</li>
+</ul>
+</dd>
+<dt>callback</dt>
+<dd><p>function(err, res)</p>
+</dd>
+</dl>
+</div>
+<div class="col-md-6">
+<pre><code class="lang-javascript">var dogapi = require(&quot;dogapi&quot;);
+var options = {
+  api_key: &quot;api_key&quot;,
+  app_key: &quot;app_key&quot;
+};
+dogapi.initialize(options);
+var query = &quot;avg(last_1h):sum:system.net.bytes_rcvd{host:host0} &gt; 100&quot;;
+dogapi.monitor.update(1234, query, function(err, res){
+  console.dir(res);
+});
+</code></pre>
+</div>
+</div>
+<div class="function row" id="monitor-remove">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">remove(monitorId, callback)</h3>
+<div class="col-md-6">
+<p>delete an existing monitor</p>
+<h4>Parameters:</h4>
+<dl>
+<dt>monitorId</dt>
+<dd><p>the id of the monitor to remove</p>
+</dd>
+<dt>callback</dt>
+<dd><p>function(err, res)</p>
+</dd>
+</dl>
+</div>
+<div class="col-md-6">
+<pre><code class="lang-javascript">var dogapi = require(&quot;dogapi&quot;);
+var options = {
+  api_key: &quot;api_key&quot;,
+  app_key: &quot;app_key&quot;
+};
+dogapi.initialize(options);
+dogapi.monitor.remove(1234, function(err, res){
+  console.dir(res);
+});
+</code></pre>
+</div>
+</div>
+<div class="function row" id="monitor-mute">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">mute(monitorId, options, callback)</h3>
+<div class="col-md-6">
+<p>mute an existing monitor</p>
+<h4>Parameters:</h4>
+<dl>
+<dt>monitorId</dt>
+<dd><p>the id of the monitor to mute</p>
+</dd>
+<dt>options</dt>
+<dd><p><em>optional</em>, an object containing any of the following</p>
+<ul>
+<li>scope: the scope to mute (e.g. &quot;role:db&quot;)</li>
+<li>end: POSIX timestamp indicating when the mute should end</li>
+</ul>
+</dd>
+<dt>callback</dt>
+<dd><p>function(err, res)</p>
+</dd>
+</dl>
+</div>
+<div class="col-md-6">
+<pre><code class="lang-javascript">var dogapi = require(&quot;dogapi&quot;);
+var options = {
+  api_key: &quot;api_key&quot;,
+  app_key: &quot;app_key&quot;
+};
+dogapi.initialize(options);
+dogapi.monitor.mute(1234, function(err, res){
+  console.dir(res);
+});
+</code></pre>
+</div>
+</div>
+<div class="function row" id="monitor-muteAll">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">muteAll(callback)</h3>
+<div class="col-md-6">
+<p>mute all monitors</p>
+<h4>Parameters:</h4>
+<dl>
+<dt>callback</dt>
+<dd><p>function(err, res)</p>
+</dd>
+</dl>
+</div>
+<div class="col-md-6">
+<pre><code class="lang-javascript">var dogapi = require(&quot;dogapi&quot;);
+var options = {
+  api_key: &quot;api_key&quot;,
+  app_key: &quot;app_key&quot;
+};
+dogapi.initialize(options);
+dogapi.monitor.muteAll(function(err, res){
+  console.dir(res);
+});
+</code></pre>
+</div>
+</div>
+<div class="function row" id="monitor-unmute">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">unmute(monitorId, scope, callback)</h3>
+<div class="col-md-6">
+<p>unmute an existing monitor</p>
+<h4>Parameters:</h4>
+<dl>
+<dt>monitorId</dt>
+<dd><p>the id of the monitor to unmute</p>
+</dd>
+<dt>scope</dt>
+<dd><p><em>optional</em>, a scope to apply the unmute to (e.g. &quot;role:db&quot;)</p>
+</dd>
+<dt>callback</dt>
+<dd><p>function(err, res)</p>
+</dd>
+</dl>
+</div>
+<div class="col-md-6">
+<pre><code class="lang-javascript">var dogapi = require(&quot;dogapi&quot;);
+var options = {
+  api_key: &quot;api_key&quot;,
+  app_key: &quot;app_key&quot;
+};
+dogapi.initialize(options);
+dogapi.monitor.unmute(1234, function(err, res){
+  console.dir(res);
+});
+</code></pre>
+</div>
+</div>
+<div class="function row" id="monitor-unmuteAll">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">unmuteAll(callback)</h3>
+<div class="col-md-6">
+<p>unmute all monitors</p>
+<h4>Parameters:</h4>
+<dl>
+<dt>callback</dt>
+<dd><p>function(err, res)</p>
+</dd>
+</dl>
+</div>
+<div class="col-md-6">
+<pre><code class="lang-javascript">var dogapi = require(&quot;dogapi&quot;);
+var options = {
+  api_key: &quot;api_key&quot;,
+  app_key: &quot;app_key&quot;
+};
+dogapi.initialize(options);
+dogapi.monitor.unmuteAll(function(err, res){
+  console.dir(res);
+});
+</code></pre>
+</div>
+</div>
+</section>
 <section id="serviceCheck" class="col-sm-12">
 <div class="row">
 <h2 class="bg-primary" style="text-indent:1rem">serviceCheck</h2></div>
@@ -392,14 +688,14 @@ dogapi.metric.query(then, now, query, function(err, res){
 <div class="row">
 <h2 class="bg-primary" style="text-indent:1rem">tag</h2></div>
 <ul class="nav nav-pills">
-<li role"presentation"><a href="#tag-get_all">get_all</a></li>
+<li role"presentation"><a href="#tag-getAll">getAll</a></li>
 <li role"presentation"><a href="#tag-get">get</a></li>
 <li role"presentation"><a href="#tag-create">create</a></li>
 <li role"presentation"><a href="#tag-update">update</a></li>
 <li role"presentation"><a href="#tag-remove">remove</a></li>
 </ul>
-<div class="function row" id="tag-get_all">
-<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">get_all(source, callback)</h3>
+<div class="function row" id="tag-getAll">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">getAll(source, callback)</h3>
 <div class="col-md-6">
 <p>get all host tags</p>
 <h4>Parameters:</h4>
@@ -419,7 +715,7 @@ var options = {
   app_key: &quot;app_key&quot;
 };
 dogapi.initialize(options);
-dogapi.tag.get_all(function(err, results){
+dogapi.tag.getAll(function(err, results){
   console.dir(results);
 });
 </code></pre>
