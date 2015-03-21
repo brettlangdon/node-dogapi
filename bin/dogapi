@@ -11,11 +11,11 @@ dogapi.initialize(config);
 
 var usage = [
     "Usage:",
-    "${command} --help",
-    "${command} <command> --help",
-    "${command} --version",
-    "${command} now",
-    "${command} then <seconds-ago>"
+    "dogapi --help",
+    "dogapi <command> --help",
+    "dogapi --version",
+    "dogapi now",
+    "dogapi then <seconds-ago>"
 ];
 var help = [];
 for(var key in dogapi){
@@ -34,7 +34,7 @@ for(var key in dogapi){
 }
 
 usage = usage.concat(help);
-usage = usage.join("\r\n").replace(/\$\{command\}/g, "  dogapi");
+usage = usage.join("\r\n");
 var args = minimist(process.argv);
 
 var command = args._[2];
