@@ -572,6 +572,7 @@ dogapi.client.request(&quot;GET&quot;, &quot;/url/path&quot;, {}, function(err, 
 <h2 class="bg-primary" style="text-indent:1rem">dogapi</h2></div>
 <ul class="nav nav-pills">
 <li role"presentation"><a href="#dogapi-initialize">initialize</a></li>
+<li role"presentation"><a href="#dogapi-now">now</a></li>
 </ul>
 <div class="function row" id="dogapi-initialize">
 <h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">initialize(options)</h3>
@@ -598,6 +599,19 @@ var options = {
 };
 dogapi.initialize(options);
 dogapi.event.create(...);
+</code></pre>
+</div>
+</div>
+<div class="function row" id="dogapi-now">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">now()</h3>
+<div class="col-md-6">
+<p>get the current POSIX timestamp</p>
+</div>
+<div class="col-md-6">
+<pre><code class="lang-javascript">var dogapi = require(&quot;dogapi&quot;);
+dogapi.now();
+// this is the same as
+parseInt(new Date().getTime() / 1000);
 </code></pre>
 </div>
 </div>
