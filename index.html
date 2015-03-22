@@ -16,6 +16,10 @@ document.addEventListener("DOMContentLoaded", function(){hljs.initHighlightingOn
 <div class="col-sm-12">
 <h1>Node Dogapi</h1>
 <ul class="nav nav-pills">
+<li role=""><a href="#comment">comment</a>
+</li>
+<li role=""><a href="#downtime">downtime</a>
+</li>
 <li role=""><a href="#event">event</a>
 </li>
 <li role=""><a href="#graph">graph</a>
@@ -41,6 +45,272 @@ document.addEventListener("DOMContentLoaded", function(){hljs.initHighlightingOn
 </ul>
 </div>
 </div>
+<section id="comment" class="col-sm-12">
+<div class="row">
+<h2 class="bg-primary" style="text-indent:1rem">comment</h2></div>
+<ul class="nav nav-pills">
+<li role"presentation"><a href="#comment-create">create</a></li>
+<li role"presentation"><a href="#comment-update">update</a></li>
+<li role"presentation"><a href="#comment-remove">remove</a></li>
+</ul>
+<div class="function row" id="comment-create">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">create(message, properties, callback)</h3>
+<div class="col-md-6">
+<p>create a new comment</p>
+<h4>Parameters:</h4>
+<dl>
+<dt>message</dt>
+<dd><p>the message of the comment</p>
+</dd>
+<dt>properties</dt>
+<dd><p><em>optional</em>, an object containing any of the following</p>
+<ul>
+<li>handle: the handle to associate the comment with (e.g. &quot;user@domain.com&quot;)</li>
+<li>related_event_id: the event to associate the comment with</li>
+</ul>
+</dd>
+<dt>callback</dt>
+<dd><p>function(err, res)</p>
+</dd>
+</dl>
+</div>
+<div class="col-md-6">
+<pre><code class="lang-javascript">var dogapi = require(&quot;dogapi&quot;);
+var options = {
+  api_key: &quot;api_key&quot;,
+  app_key: &quot;app_key&quot;
+};
+dogapi.initialize(options);
+dogapi.comment.create(&quot;a comment message&quot;, function(err, res){
+  console.dir(res);
+});
+</code></pre>
+</div>
+</div>
+<div class="function row" id="comment-update">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">update(commentId, message, handle, callback)</h3>
+<div class="col-md-6">
+<p>update an existing comment</p>
+<h4>Parameters:</h4>
+<dl>
+<dt>commentId</dt>
+<dd><p>the id of the comment to update</p>
+</dd>
+<dt>message</dt>
+<dd><p>the message of the comment</p>
+</dd>
+<dt>handle</dt>
+<dd><p><em>optional</em>, the handle to associate the comment with (e.g. &quot;user@domain.com&quot;)</p>
+</dd>
+<dt>callback</dt>
+<dd><p>function(err, res)</p>
+</dd>
+</dl>
+</div>
+<div class="col-md-6">
+<pre><code class="lang-javascript">var dogapi = require(&quot;dogapi&quot;);
+var options = {
+  api_key: &quot;api_key&quot;,
+  app_key: &quot;app_key&quot;
+};
+dogapi.initialize(options);
+dogapi.comment.update(1234, &quot;new message&quot;, function(err, res){
+  console.dir(res);
+});
+</code></pre>
+</div>
+</div>
+<div class="function row" id="comment-remove">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">remove(commentId, callback)</h3>
+<div class="col-md-6">
+<p>remove a comment</p>
+<h4>Parameters:</h4>
+<dl>
+<dt>commentId</dt>
+<dd><p>the id of the comment to remove</p>
+</dd>
+<dt>callback</dt>
+<dd><p>function(err, res)</p>
+</dd>
+</dl>
+</div>
+<div class="col-md-6">
+<pre><code class="lang-javascript">var dogapi = require(&quot;dogapi&quot;);
+var options = {
+  api_key: &quot;api_key&quot;,
+  app_key: &quot;app_key&quot;
+};
+dogapi.initialize(options);
+dogapi.comment.remove(1234, function(err, res){
+  console.dir(res);
+});
+</code></pre>
+</div>
+</div>
+</section>
+<section id="downtime" class="col-sm-12">
+<div class="row">
+<h2 class="bg-primary" style="text-indent:1rem">downtime</h2></div>
+<ul class="nav nav-pills">
+<li role"presentation"><a href="#downtime-create">create</a></li>
+<li role"presentation"><a href="#downtime-update">update</a></li>
+<li role"presentation"><a href="#downtime-remove">remove</a></li>
+<li role"presentation"><a href="#downtime-get">get</a></li>
+<li role"presentation"><a href="#downtime-getAll">getAll</a></li>
+</ul>
+<div class="function row" id="downtime-create">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">create(scope, properties, callback)</h3>
+<div class="col-md-6">
+<p>schedule a new downtime</p>
+<h4>Parameters:</h4>
+<dl>
+<dt>scope</dt>
+<dd><p>string scope that the downtime should apply to (e.g. &quot;env:staging&quot;)</p>
+</dd>
+<dt>properties</dt>
+<dd><p><em>optional</em>, an object containing any of the following</p>
+<ul>
+<li>start: POSIX timestamp for when the downtime should start</li>
+<li>end: POSIX timestamp for when the downtime should end</li>
+<li>message: a string message to accompany the downtime</li>
+</ul>
+</dd>
+<dt>callback</dt>
+<dd><p>function(err, res)</p>
+</dd>
+</dl>
+</div>
+<div class="col-md-6">
+<pre><code class="lang-javascript">var dogapi = require(&quot;dogapi&quot;);
+var options = {
+  api_key: &quot;api_key&quot;,
+  app_key: &quot;app_key&quot;
+};
+dogapi.initialize(options);
+dogapi.downtime.create(&quot;env:staging&quot;, function(err, res){
+  console.dir(res);
+});
+</code></pre>
+</div>
+</div>
+<div class="function row" id="downtime-update">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">update(downtimeId, properties, callback)</h3>
+<div class="col-md-6">
+<p>update an existing downtime</p>
+<h4>Parameters:</h4>
+<dl>
+<dt>downtimeId</dt>
+<dd><p>the id the downtie to update</p>
+</dd>
+<dt>properties</dt>
+<dd><p><em>optional</em>, an object containing any of the following</p>
+<ul>
+<li>scope: the scope the downtime should be changed to (e.g. &quot;env:staging&quot;)</li>
+<li>start: POSIX timestamp for when the downtime should start</li>
+<li>end: POSIX timestamp for when the downtime should end</li>
+<li>message: a string message to accompany the downtime</li>
+</ul>
+</dd>
+<dt>callback</dt>
+<dd><p>function(err, res)</p>
+</dd>
+</dl>
+</div>
+<div class="col-md-6">
+<pre><code class="lang-javascript">var dogapi = require(&quot;dogapi&quot;);
+var options = {
+  api_key: &quot;api_key&quot;,
+  app_key: &quot;app_key&quot;
+};
+dogapi.initialize(options);
+var properties = {
+  scope: &quot;env:staging&quot;
+};
+dogapi.downtime.update(1234, properties, function(err, res){
+  console.dir(res);
+});
+</code></pre>
+</div>
+</div>
+<div class="function row" id="downtime-remove">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">remove(downtimeId, callback)</h3>
+<div class="col-md-6">
+<p>delete a scheduled downtime</p>
+<h4>Parameters:</h4>
+<dl>
+<dt>downtimeId</dt>
+<dd><p>the id of the downtime</p>
+</dd>
+<dt>callback</dt>
+<dd><p>function(err, res)</p>
+</dd>
+</dl>
+</div>
+<div class="col-md-6">
+<pre><code class="lang-javascript">var dogapi = require(&quot;dogapi&quot;);
+var options = {
+  api_key: &quot;api_key&quot;,
+  app_key: &quot;app_key&quot;
+};
+dogapi.initialize(options);
+dogapi.downtime.remove(1234, function(err, res){
+  console.dir(res);
+});
+</code></pre>
+</div>
+</div>
+<div class="function row" id="downtime-get">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">get(downtimeId, callback)</h3>
+<div class="col-md-6">
+<p>get a scheduled downtimes details</p>
+<h4>Parameters:</h4>
+<dl>
+<dt>downtimeId</dt>
+<dd><p>the id of the downtime</p>
+</dd>
+<dt>callback</dt>
+<dd><p>function(err, res)</p>
+</dd>
+</dl>
+</div>
+<div class="col-md-6">
+<pre><code class="lang-javascript">var dogapi = require(&quot;dogapi&quot;);
+var options = {
+  api_key: &quot;api_key&quot;,
+  app_key: &quot;app_key&quot;
+};
+dogapi.initialize(options);
+dogapi.downtime.get(1234, function(err, res){
+  console.dir(res);
+});
+</code></pre>
+</div>
+</div>
+<div class="function row" id="downtime-getAll">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">getAll(callback)</h3>
+<div class="col-md-6">
+<p>get all downtimes details</p>
+<h4>Parameters:</h4>
+<dl>
+<dt>callback</dt>
+<dd><p>function(err, res)</p>
+</dd>
+</dl>
+</div>
+<div class="col-md-6">
+<pre><code class="lang-javascript">var dogapi = require(&quot;dogapi&quot;);
+var options = {
+  api_key: &quot;api_key&quot;,
+  app_key: &quot;app_key&quot;
+};
+dogapi.initialize(options);
+dogapi.downtime.getAll(function(err, res){
+  console.dir(res);
+});
+</code></pre>
+</div>
+</div>
+</section>
 <section id="event" class="col-sm-12">
 <div class="row">
 <h2 class="bg-primary" style="text-indent:1rem">event</h2></div>
