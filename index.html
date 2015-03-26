@@ -36,6 +36,8 @@ document.addEventListener("DOMContentLoaded", function(){hljs.initHighlightingOn
 </li>
 <li role=""><a href="#tag">tag</a>
 </li>
+<li role=""><a href="#timeboard">timeboard</a>
+</li>
 <li role=""><a href="#user">user</a>
 </li>
 <li role=""><a href="#client">client</a>
@@ -332,7 +334,7 @@ dogapi.downtime.getAll(function(err, res){
 <dd><p>the body of the event</p>
 </dd>
 <dt>properties</dt>
-<dd><p>an <em>optional</em> object continaing any of the following additional optional properties</p>
+<dd><p>an <em>optional</em> object continaing any of the following additional <em>optional</em> properties</p>
 <ul>
 <li>date_happened: POSIX timestamp of when it happened</li>
 <li>priority: &quot;normal&quot; or &quot;low&quot; [defualt: &quot;normal&quot;]</li>
@@ -1236,6 +1238,236 @@ var options = {
 dogapi.initialize(options);
 dogapi.tag.remove(&quot;host.name&quot;, function(err, results){
   console.dir(results);
+});
+</code></pre>
+</div>
+</div>
+</section>
+<section id="timeboard" class="col-sm-12">
+<div class="row">
+<h2 class="bg-primary" style="text-indent:1rem">timeboard</h2></div>
+<ul class="nav nav-pills">
+<li role"presentation"><a href="#timeboard-create">create</a></li>
+<li role"presentation"><a href="#timeboard-update">update</a></li>
+<li role"presentation"><a href="#timeboard-remove">remove</a></li>
+<li role"presentation"><a href="#timeboard-getAll">getAll</a></li>
+<li role"presentation"><a href="#timeboard-get">get</a></li>
+</ul>
+<div class="function row" id="timeboard-create">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">create(title, description, graphs, templateVariables, callback)</h3>
+<div class="col-md-6">
+<p>add a new timeboard</p>
+<h4>Parameters:</h4>
+<dl>
+<dt>title</dt>
+<dd><p>the title of the timeboard</p>
+</dd>
+<dt>description</dt>
+<dd><p>the description of the timeboard</p>
+</dd>
+<dt>graphs</dt>
+<dd><p>an array of objects with the following keys</p>
+<ul>
+<li>title: the name of the graph</li>
+<li>definition: an object containing the graph definition, e.g. <code>{&quot;requests&quot;: [{&quot;q&quot;: &quot;system.cpu.idle{*} by {host}&quot;}</code></li>
+</ul>
+</dd>
+<dt>templateVariables</dt>
+<dd><p><em>optional</em>, an array of objects with the following keys</p>
+<ul>
+<li>name: the name of the variable</li>
+<li>prefix: <em>optional</em>, the tag prefix for this variable</li>
+<li>default: <em>optional</em>, the default value for this tag</li>
+</ul>
+</dd>
+<dt>callback</dt>
+<dd><p>function(err, res)</p>
+</dd>
+</dl>
+</div>
+<div class="col-md-6">
+<pre><code class="lang-javascript">var dogapi = require(&quot;dogapi&quot;);
+var options = {
+  api_key: &quot;api_key&quot;,
+  app_key: &quot;app_key&quot;
+};
+dogapi.initialize(options);
+var title = &quot;Time Keeps on Slipping&quot;;
+var description = &quot;Into the Future&quot;;
+var graphs = [
+  {
+    definition: {
+      events: [],
+      requests: [
+        {q: &quot;avg:system.mem.free{*}&quot;}
+      ],
+      viz: &quot;timeseries&quot;
+    },
+    title: &quot;Average Memory Free&quot;
+  }
+];
+var templateVariables = [
+  {
+    name: &quot;host1&quot;,
+    prefix: &quot;host&quot;,
+    default: &quot;host:my-host&quot;
+  }
+];
+dogapi.timeboard.create(
+  title, description, graphs, templateVariables,
+  function(err, res){
+    console.dir(res);
+  }
+);
+</code></pre>
+</div>
+</div>
+<div class="function row" id="timeboard-update">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">update(dashId, title, description, graphs, templateVariables, callback)</h3>
+<div class="col-md-6">
+<p>update an existing timeboard</p>
+<h4>Parameters:</h4>
+<dl>
+<dt>dashId</dt>
+<dd><p>the id of the timeboard to update</p>
+</dd>
+<dt>title</dt>
+<dd><p>the title of the timeboard</p>
+</dd>
+<dt>description</dt>
+<dd><p>the description of the timeboard</p>
+</dd>
+<dt>graphs</dt>
+<dd><p>an array of objects with the following keys</p>
+<ul>
+<li>title: the name of the graph</li>
+<li>definition: an object containing the graph definition, e.g. <code>{&quot;requests&quot;: [{&quot;q&quot;: &quot;system.cpu.idle{*} by {host}&quot;}</code></li>
+</ul>
+</dd>
+<dt>templateVariables</dt>
+<dd><p><em>optional</em>, an array of objects with the following keys</p>
+<ul>
+<li>name: the name of the variable</li>
+<li>prefix: <em>optional</em>, the tag prefix for this variable</li>
+<li>default: <em>optional</em>, the default value for this tag</li>
+</ul>
+</dd>
+<dt>callback</dt>
+<dd><p>function(err, res)</p>
+</dd>
+</dl>
+</div>
+<div class="col-md-6">
+<pre><code class="lang-javascript">var dogapi = require(&quot;dogapi&quot;);
+var options = {
+  api_key: &quot;api_key&quot;,
+  app_key: &quot;app_key&quot;
+};
+dogapi.initialize(options);
+var title = &quot;Time Keeps on Slipping&quot;;
+var description = &quot;Into the Future&quot;;
+var graphs = [
+  {
+    definition: {
+      events: [],
+      requests: [
+        {q: &quot;avg:system.mem.free{*}&quot;}
+      ],
+      viz: &quot;timeseries&quot;
+    },
+    title: &quot;Average Memory Free&quot;
+  }
+];
+var templateVariables = [
+  {
+    name: &quot;host1&quot;,
+    prefix: &quot;host&quot;,
+    default: &quot;host:my-host&quot;
+  }
+];
+dogapi.timeboard.update(
+  1234, title, description, graphs, templateVariables,
+  function(err, res){
+    console.dir(res);
+  }
+);
+</code></pre>
+</div>
+</div>
+<div class="function row" id="timeboard-remove">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">remove(dashId, callback)</h3>
+<div class="col-md-6">
+<p>remove an existing timeboard</p>
+<h4>Parameters:</h4>
+<dl>
+<dt>dashId</dt>
+<dd><p>the id of the timeboard to remove</p>
+</dd>
+<dt>callback</dt>
+<dd><p>function(err, res)</p>
+</dd>
+</dl>
+</div>
+<div class="col-md-6">
+<pre><code class="lang-javascript">var dogapi = require(&quot;dogapi&quot;);
+var options = {
+  api_key: &quot;api_key&quot;,
+  app_key: &quot;app_key&quot;
+};
+dogapi.initialize(options);
+dogapi.timeboard.remove(1234, function(err, res){
+  console.dir(res);
+});
+</code></pre>
+</div>
+</div>
+<div class="function row" id="timeboard-getAll">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">getAll(callback)</h3>
+<div class="col-md-6">
+<p>get all existing timeboards</p>
+<h4>Parameters:</h4>
+<dl>
+<dt>callback</dt>
+<dd><p>function(err, res)</p>
+</dd>
+</dl>
+</div>
+<div class="col-md-6">
+<pre><code class="lang-javascript">var dogapi = require(&quot;dogapi&quot;);
+var options = {
+  api_key: &quot;api_key&quot;,
+  app_key: &quot;app_key&quot;
+};
+dogapi.initialize(options);
+dogapi.timeboard.getAll(1234, function(err, res){
+  console.dir(res);
+});
+</code></pre>
+</div>
+</div>
+<div class="function row" id="timeboard-get">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">get(dashId, callback)</h3>
+<div class="col-md-6">
+<p>get an existing timeboard</p>
+<h4>Parameters:</h4>
+<dl>
+<dt>dashId</dt>
+<dd><p>the id of the timeboard to get</p>
+</dd>
+<dt>callback</dt>
+<dd><p>function(err, res)</p>
+</dd>
+</dl>
+</div>
+<div class="col-md-6">
+<pre><code class="lang-javascript">var dogapi = require(&quot;dogapi&quot;);
+var options = {
+  api_key: &quot;api_key&quot;,
+  app_key: &quot;app_key&quot;
+};
+dogapi.initialize(options);
+dogapi.timeboard.get(1234, function(err, res){
+  console.dir(res);
 });
 </code></pre>
 </div>
