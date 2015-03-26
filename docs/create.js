@@ -31,7 +31,7 @@ glob(match, function(er, files){
 
                 for(var key in comment.doc.params){
                     if(comment.doc.params.hasOwnProperty(key)){
-                        comment.doc.params[key] = comment.doc.params[key].replace("optional", "_optional_");
+                        comment.doc.params[key] = comment.doc.params[key].replace(/optional/g, "_optional_");
                         comment.doc.params[key] = marked(comment.doc.params[key]);
                     }
                 }
