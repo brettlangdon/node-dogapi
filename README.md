@@ -41,7 +41,7 @@ dogapi.initialize(options);
 
 ## API Documentation
 
-https://brettlangdon.github.io/dogapi
+https://brettlangdon.github.io/node-dogapi
 
 
 ## TODO
