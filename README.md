@@ -28,7 +28,6 @@ Keys can be found at: https://app.datadoghq.com/account/settings#api
 The keys can be provided either as constructor parameters when creating an instance of `dogapi`
 as `api_key` and `app_key` or as the environment variables `DD_API_KEY` and `DD_APP_KEY`.
 
-**Constructor parameters:**
 ```javascript
 var dogapi = require('dogapi');
 
@@ -37,43 +36,18 @@ var options = {
  app_key: 'YOUR_KEY_HERE',
 };
 
-var app = new dogapi(options);
+dogapi.initialize(options);
 ```
 
-**Environment Variables:**
-```bash
-DD_API_KEY=YOUR_KEY_HERE DD_APP_KEY=YOUR_KEY_HERE node app.js
-```
+## API Documentation
 
-## Sample Usage:
+https://brettlangdon.github.io/dogapi
 
-**Example:** get all events since this time yesterday:
-```javascript
-var dogapi = require('dogapi');
 
-var options = {
-  api_key: 'YOUR_KEY_HERE',
-  app_key: 'YOUR KEY_HERE',
-};
+## TODO
 
-var api = new dogapi(options);
-
-var end = parseInt(new Date().getTime() / 1000);
-var start = end - 86400;
-
-api.stream(start, end, function(error, result, status_code){
-  if(error){
-    console.log('Error: ', error);
-    console.log('Status Code: ', status_code);
-    return;
-  }
-
-  result['events'].forEach(function(event){
-    console.log(event['id'] + ': ' + event['title']);
-  });
-});
-```
-
+- [ ] Add tests
+- [ ] Add parameter validation (especially for dashboards)
 
 ## License
 
