@@ -3,7 +3,12 @@ node-dogapi
 
 Datadog API Node.JS Client modeled after `Datadog/dogapi` python client.
 
-Official API Documentation: http://docs.datadoghq.com/api/
+Official Datadog API Documentation: http://docs.datadoghq.com/api/
+
+node-dogapi API Docs: http://brettlangdon.github.io/node-dogapi/
+
+*note* `node-dogapi` has been updated to `v1.0.0` the api has changed quiet a
+ bit please be sure to review the new api before upgrading.
 
 ## Installation
 
@@ -38,11 +43,6 @@ var options = {
 
 dogapi.initialize(options);
 ```
-
-## API Documentation
-
-https://brettlangdon.github.io/node-dogapi
-
 
 ## TODO
 
