@@ -32,6 +32,8 @@ document.addEventListener("DOMContentLoaded", function(){hljs.initHighlightingOn
 </li>
 <li role=""><a href="#monitor">monitor</a>
 </li>
+<li role=""><a href="#screenboard">screenboard</a>
+</li>
 <li role=""><a href="#serviceCheck">serviceCheck</a>
 </li>
 <li role=""><a href="#tag">tag</a>
@@ -1024,6 +1026,197 @@ dogapi.monitor.unmuteAll(function(err, res){
 </div>
 </div>
 </section>
+<section id="screenboard" class="col-sm-12">
+<div class="row">
+<h2 class="bg-primary" style="text-indent:1rem">screenboard</h2></div>
+<ul class="nav nav-pills">
+<li role"presentation"><a href="#screenboard-create">create</a></li>
+<li role"presentation"><a href="#screenboard-remove">remove</a></li>
+<li role"presentation"><a href="#screenboard-get">get</a></li>
+<li role"presentation"><a href="#screenboard-getAll">getAll</a></li>
+<li role"presentation"><a href="#screenboard-share">share</a></li>
+</ul>
+<div class="function row" id="screenboard-create">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">create(title, description, graphs, options, callback)</h3>
+<div class="col-md-6">
+<p>create a new screenboard</p>
+<h4>Parameters:</h4>
+<dl>
+<dt>title</dt>
+<dd><p>the name of the screenboard</p>
+</dd>
+<dt>description</dt>
+<dd><p>description of the screenboard</p>
+</dd>
+<dt>graphs</dt>
+<dd><p>an array of objects which required the following keys</p>
+<ul>
+<li>title: the name of the graph</li>
+<li>widgets: an array of widgets, see <a href="http://docs.datadoghq.com/api/screenboards/">http://docs.datadoghq.com/api/screenboards/</a> for more info</li>
+</ul>
+</dd>
+<dt>options</dt>
+<dd><p><em>optional</em>, a object which can contain any of the following keys</p>
+<ul>
+<li>templateVariables: |
+an array of objects with the following keys<ul>
+<li>name: the name of the variable</li>
+<li>prefix: <em>optional</em>, the tag prefix for this variable</li>
+<li>default: <em>optional</em>, the default value for this tag</li>
+</ul>
+</li>
+<li>width: the width of the screenboard in pixels</li>
+<li>height: the height of the screenboard in pixels</li>
+</ul>
+</dd>
+<dt>callback</dt>
+<dd><p>function(err, res)</p>
+</dd>
+</dl>
+</div>
+<div class="col-md-6">
+<pre><code class="lang-javascript">var dogapi = require(&quot;dogapi&quot;);
+var options = {
+  api_key: &quot;api_key&quot;,
+  app_key: &quot;app_key&quot;
+};
+dogapi.initialize(options);
+var title = &quot;my screenboard&quot;;
+var description = &quot;it is super awesome&quot;;
+var graphs = [
+  {
+    type: &quot;image&quot;,
+    height: 20,
+    width: 32,
+    y: 7,
+    x: 32,
+    url: &quot;https://path/to/image.jpg&quot;
+  }
+];
+var options = {
+  templateVariables: [
+    {
+      name: &quot;host1&quot;,
+      prefix: &quot;host&quot;,
+      &quot;default&quot;: &quot;host:my-host&quot;
+    }
+  ]
+};
+dogapi.screenboard.create(
+  title, description, graphs, options,
+  function(err, res){
+    console.dir(res);
+  }
+);
+</code></pre>
+</div>
+</div>
+<div class="function row" id="screenboard-remove">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">remove(boardId, callback)</h3>
+<div class="col-md-6">
+<p>delete an existing screenboard</p>
+<h4>Parameters:</h4>
+<dl>
+<dt>boardId</dt>
+<dd><p>the id of the screenboard to delete</p>
+</dd>
+<dt>callback</dt>
+<dd><p>function(err, res)</p>
+</dd>
+</dl>
+</div>
+<div class="col-md-6">
+<pre><code class="lang-javascript">var dogapi = require(&quot;dogapi&quot;);
+var options = {
+  api_key: &quot;api_key&quot;,
+  app_key: &quot;app_key&quot;
+};
+dogapi.initialize(options);
+dogapi.screenboard.remove(1234, function(err, res){
+  console.dir(res);
+});
+</code></pre>
+</div>
+</div>
+<div class="function row" id="screenboard-get">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">get(boardId, callback)</h3>
+<div class="col-md-6">
+<p>get the info of a single existing screenboard</p>
+<h4>Parameters:</h4>
+<dl>
+<dt>boardId</dt>
+<dd><p>the id of the screenboard to fetch</p>
+</dd>
+<dt>callback</dt>
+<dd><p>function(err, res)</p>
+</dd>
+</dl>
+</div>
+<div class="col-md-6">
+<pre><code class="lang-javascript">var dogapi = require(&quot;dogapi&quot;);
+var options = {
+  api_key: &quot;api_key&quot;,
+  app_key: &quot;app_key&quot;
+};
+dogapi.initialize(options);
+dogapi.screenboard.get(1234, function(err, res){
+  console.dir(res);
+});
+</code></pre>
+</div>
+</div>
+<div class="function row" id="screenboard-getAll">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">getAll(callback)</h3>
+<div class="col-md-6">
+<p>get all existing screenboards</p>
+<h4>Parameters:</h4>
+<dl>
+<dt>callback</dt>
+<dd><p>function(err, res)</p>
+</dd>
+</dl>
+</div>
+<div class="col-md-6">
+<pre><code class="lang-javascript">var dogapi = require(&quot;dogapi&quot;);
+var options = {
+  api_key: &quot;api_key&quot;,
+  app_key: &quot;app_key&quot;
+};
+dogapi.initialize(options);
+dogapi.screenboard.getAll(function(err, res){
+  console.dir(res);
+});
+</code></pre>
+</div>
+</div>
+<div class="function row" id="screenboard-share">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">share(boardId, callback)</h3>
+<div class="col-md-6">
+<p>share an existing screenboard</p>
+<h4>Parameters:</h4>
+<dl>
+<dt>boardId</dt>
+<dd><p>the id of the screenboard to share</p>
+</dd>
+<dt>callback</dt>
+<dd><p>function(err, res)</p>
+</dd>
+</dl>
+</div>
+<div class="col-md-6">
+<pre><code class="lang-javascript">var dogapi = require(&quot;dogapi&quot;);
+var options = {
+  api_key: &quot;api_key&quot;,
+  app_key: &quot;app_key&quot;
+};
+dogapi.initialize(options);
+dogapi.screenboard.share(1234, function(err, res){
+  console.dir(res);
+});
+</code></pre>
+</div>
+</div>
+</section>
 <section id="serviceCheck" class="col-sm-12">
 <div class="row">
 <h2 class="bg-primary" style="text-indent:1rem">serviceCheck</h2></div>
@@ -1310,7 +1503,7 @@ var templateVariables = [
   {
     name: &quot;host1&quot;,
     prefix: &quot;host&quot;,
-    default: &quot;host:my-host&quot;
+    &quot;default&quot;: &quot;host:my-host&quot;
   }
 ];
 dogapi.timeboard.create(
