@@ -1,13 +1,13 @@
 node-dogapi
 ===========
 
-Datadog API Node.JS Client modeled after `Datadog/dogapi` python client.
+Datadog API Node.JS Client.
 
 Official Datadog API Documentation: http://docs.datadoghq.com/api/
 
-node-dogapi API Docs: http://brettlangdon.github.io/node-dogapi/
+dogapi API Docs: http://brettlangdon.github.io/node-dogapi/
 
-*note* `node-dogapi` has been updated to `v1.0.0` the api has changed quiet a
+*note* `dogapi` has been updated to `v1.0.0` the api has changed quiet a
  bit please be sure to review the new api before upgrading.
 
 ## Installation
@@ -30,19 +30,41 @@ You will need your Datadog api key as well as an application key to use `dogapi`
 
 Keys can be found at: https://app.datadoghq.com/account/settings#api
 
-The keys can be provided either as constructor parameters when creating an instance of `dogapi`
-as `api_key` and `app_key` or as the environment variables `DD_API_KEY` and `DD_APP_KEY`.
-
 ```javascript
-var dogapi = require('dogapi');
+var dogapi = require("dogapi");
 
 var options = {
- api_key: 'YOUR_KEY_HERE',
- app_key: 'YOUR_KEY_HERE',
+ api_key: "YOUR_KEY_HERE",
+ app_key: "YOUR_KEY_HERE",
 };
 
 dogapi.initialize(options);
 ```
+
+## CLI Usage
+
+`dogapi` now ships with a command line interface `dogapi`. To use it you
+will need a `.dogapirc` file which meets the standards of
+https://github.com/dominictarr/rc
+
+The config file must contain both `api_key` and `app_key` keys (you can find
+your datadog api and app keys here
+https://app.datadoghq.com/account/settings#api)
+
+Example:
+
+```json
+{
+  "api_key": "<API_KEY>",
+  "app_key": "<APP_KEY>"
+}
+```
+
+### Usage
+
+Please run `dogapi --help` to see current usage documentation for the tool.
+
+Every api method available in `dogapi` is exposed via the cli tool.
 
 ## TODO
 
