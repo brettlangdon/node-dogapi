@@ -4,7 +4,11 @@
   "description": "Datadog API Node.JS Client",
   "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "docs": "node ./docs/create.js > index.html"
+  },
+  "bin": {
+    "dogapi": "bin/dogapi"
   },
   "repository": {
     "type": "git",
@@ -19,7 +23,7 @@
     "dog api"
   ],
   "author": "Brett Langdon <brett@blangdon.com> (http://brett.is)",
-  "contributors":[
+  "contributors": [
     "colinjonesx (http://www.thetestpeople.com)",
     "dalehamel (http://blog.srvthe.net)"
   ],
@@ -27,6 +31,14 @@
   "readmeFilename": "README.md",
   "gitHead": "f388635a5ab4f4da25702dc0999385d437bdf2bc",
   "dependencies": {
-    "extend": "^2.0.0"
+    "extend": "^2.0.0",
+    "minimist": "^1.1.1",
+    "rc": "^1.0.0"
+  },
+  "devDependencies": {
+    "docast": "^0.1.1",
+    "glob": "^5.0.3",
+    "js-yaml": "^3.2.7",
+    "marked": "^0.3.3"
   }
 }

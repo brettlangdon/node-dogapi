@@ -1,0 +1,79 @@
+#!/usr/bin/env node
+var dogapi = require("../");
+var minimist = require("minimist");
+var rc = require("rc");
+
+var config = rc("dogapi", {
+    api_key: null,
+    app_key: null
+});
+dogapi.initialize(config);
+
+var usage = [
+    "Usage:",
+    "  dogapi --help",
+    "  dogapi <command> --help",
+    "  dogapi --version",
+    "  dogapi now",
+    "  dogapi past <seconds-ago>",
+    "  dogapi future <seconds-ahead>"
+];
+var help = [];
+for(var key in dogapi){
+    if(!dogapi.hasOwnProperty(key)){
+        continue;
+    } else if(!dogapi[key].hasOwnProperty("getUsage") || typeof dogapi[key].getUsage !== "function"){
+        continue;
+    } else if(!dogapi[key].hasOwnProperty("handleCli") || typeof dogapi[key].handleCli !== "function"){
+        continue;
+    }
+    usage = usage.concat(dogapi[key].getUsage());
+
+    if(dogapi[key].hasOwnProperty("getHelp") && typeof dogapi[key].getHelp === "function"){
+        help = help.concat([""], dogapi[key].getHelp());
+    }
+}
+
+usage = usage.concat(help);
+usage = usage.join("\r\n");
+var args = minimist(process.argv);
+
+var command = args._[2];
+var subcommand = args._[3];
+
+// this is the one unusual case
+if(command === "servicecheck"){
+    command = "serviceCheck";
+}
+
+if(command === "now"){
+    console.log(dogapi.now());
+} else if(command === "past" && args._.length > 3){
+    console.log(dogapi.now() - parseInt(args._[args._.length - 1]));
+} else if(command === "future" && args._.length > 3){
+    console.log(dogapi.now() + parseInt(args._[args._.length - 1]));
+} else if(dogapi.hasOwnProperty(command)){
+    if(subcommand){
+        dogapi[command].handleCli(subcommand, args, function(err, res){
+            if(err){
+                console.error(JSON.stringify(err, null, '  '));
+                process.exit(1);
+            } else {
+                if(res === ""){
+                    res = "success";
+                }
+                console.log(JSON.stringify(res, null, '  '));
+            }
+        });
+    } else {
+        var commandUsage = ["Usage:"].concat(dogapi[command].getUsage());
+        if(dogapi[command].hasOwnProperty("getHelp") && typeof dogapi[command].getHelp === "function"){
+            commandUsage = commandUsage.concat(["\r\n"], dogapi[command].getHelp());
+        }
+        console.log(commandUsage.join("\r\n").replace(/\$\{command\}/g, "  dogapi"));
+    }
+} else if(args.version){
+    console.log(require("../package.json").version);
+} else {
+    console.log(usage);
+}
