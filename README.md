@@ -44,13 +44,13 @@ dogapi.initialize(options);
 ### HTTPS Proxy
 
 If you are behind a proxy you need to a proxy agent. You can use the https proxy agent from
-http://blog.vanamco.com/connecting-via-proxy-node-js/ if you like.
+http://blog.vanamco.com/proxy-requests-in-node-js/ if you like.
 To configure dogapi with the agent just add it to the options.
 
 ```javascript
 var dogapi = require("dogapi");
 
-//Code from http://blog.vanamco.com/connecting-via-proxy-node-js/
+//Code from http://blog.vanamco.com/proxy-requests-in-node-js/
 var HttpsProxyAgent = require("./httpsproxyagent");
 
 var agent = new HttpsProxyAgent({
