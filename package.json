@@ -1,6 +1,6 @@
 {
   "name": "dogapi",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Datadog API Node.JS Client",
   "main": "lib/index.js",
   "scripts": {
@@ -25,7 +25,8 @@
   "author": "Brett Langdon <brett@blangdon.com> (http://brett.is)",
   "contributors": [
     "colinjonesx (http://www.thetestpeople.com)",
-    "dalehamel (http://blog.srvthe.net)"
+    "dalehamel (http://blog.srvthe.net)",
+    "egut (https://github.com/egut)"
   ],
   "license": "MIT",
   "readmeFilename": "README.md",
