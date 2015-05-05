@@ -33,8 +33,7 @@
   "dependencies": {
     "extend": "^2.0.0",
     "minimist": "^1.1.1",
-    "rc": "^1.0.0",
-    "tls": "0.0.1"
+    "rc": "^1.0.0"
   },
   "devDependencies": {
     "docast": "^0.1.1",
