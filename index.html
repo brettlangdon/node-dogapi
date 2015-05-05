@@ -486,7 +486,7 @@ var options = {
 dogapi.initialize(options);
 var query = &quot;system.cpu.idle{*}&quot;;
 var to = dogapi.now();
-var from = from - 3600;  // an hour ago
+var from = to - 3600;  // an hour ago
 dogapi.graph.snapshot(query, from, to, function(err, res){
   console.dir(res);
 });
@@ -1772,15 +1772,28 @@ with the datadog api. The available options are.</p>
 <li>app_key: your app key</li>
 <li>api_version: the version of the api [default: <code>v1</code>]</li>
 <li>api_host: the host to call [default: <code>api.datadoghq.com</code>]</li>
+<li>proxy_agent: Optional, A Https Proxy agent.</li>
 </ul>
 </dd>
 </dl>
 </div>
 <div class="col-md-6">
 <pre><code class="lang-javascript">var dogapi = require(&quot;dogapi&quot;);
+
+// Optional for Proxy -------8&lt;----------
+// Code from http://blog.vanamco.com/proxy-requests-in-node-js/
+var HttpsProxyAgent = require(&quot;./httpsproxyagent&quot;);
+
+var agent = new HttpsProxyAgent({
+    proxyHost: &quot;MY_PROXY_HOST&quot;,
+    proxyPort: 3128
+});
+// Optional for Proxy --------&gt;8----------
+
 var options = {
   api_key: &quot;&lt;API_KEY_HERE&gt;&quot;,
-  app_key: &quot;&lt;APP_KEY_HERE&gt;&quot;
+  app_key: &quot;&lt;APP_KEY_HERE&gt;&quot;,
+  proxy_agent: agent  // Optional for Proxy
 };
 dogapi.initialize(options);
 dogapi.event.create(...);
