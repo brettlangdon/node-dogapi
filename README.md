@@ -12,8 +12,10 @@ dogapi API Docs: http://brettlangdon.github.io/node-dogapi/
 
 ## StatsD
 
-`dogapi` does not provide any functionality to talk to a local dogstatsd server.
+`dogapi` does not provide any functionality to talk to a local `dogstatsd` server.
 This library is purely an interface to the HTTP api.
+
+If you are looking for a good Datadog StatsD library, I recommend checking out [node-dogstatsd](https://github.com/joybro/node-dogstatsd).
 
 ## Installation
 
