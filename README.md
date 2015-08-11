@@ -10,6 +10,11 @@ dogapi API Docs: http://brettlangdon.github.io/node-dogapi/
 *note* `dogapi` has been updated to `v1.0.0` the api has changed quiet a
  bit please be sure to review the new api before upgrading.
 
+## StatsD
+
+`dogapi` does not provide any functionality to talk to a local dogstatsd server.
+This library is purely an interface to the HTTP api.
+
 ## Installation
 
 **From NPM:**
