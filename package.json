@@ -4,7 +4,7 @@
   "description": "Datadog API Node.JS Client",
   "main": "lib/index.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha ./test",
+    "test": "./node_modules/.bin/mocha --recursive ./test",
     "docs": "node ./docs/create.js > index.html"
   },
   "bin": {
@@ -43,6 +43,7 @@
     "glob": "^5.0.3",
     "js-yaml": "^3.2.7",
     "marked": "^0.3.3",
-    "mocha": "^2.2.5"
+    "mocha": "^2.2.5",
+    "sinon": "^1.15.4"
   }
 }
