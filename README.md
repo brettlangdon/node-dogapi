@@ -1,5 +1,5 @@
-node-dogapi
-===========
+dogapi
+======
 
 [![npm version](https://badge.fury.io/js/dogapi.svg)](https://www.npmjs.com/package/dogapi)
 [![Build Status](https://travis-ci.org/brettlangdon/node-dogapi.svg?branch=master)](https://travis-ci.org/brettlangdon/node-dogapi)
@@ -10,9 +10,6 @@ Datadog API Node.JS Client.
 Official Datadog API Documentation: http://docs.datadoghq.com/api/
 
 dogapi API Docs: http://brettlangdon.github.io/node-dogapi/
-
-*note* `dogapi` has been updated to `v1.0.0` the api has changed quiet a
- bit please be sure to review the new api before upgrading.
 
 ## StatsD
 
@@ -103,15 +100,10 @@ Please run `dogapi --help` to see current usage documentation for the tool.
 
 Every api method available in `dogapi` is exposed via the cli tool.
 
-## TODO
-
-- [ ] Add tests
-- [ ] Add parameter validation (especially for dashboards)
-
 ## License
 
 The MIT License (MIT)
-Copyright (c) 2013 Brett Langdon <brett@blangdon.com>
+Copyright (c) 2013 Brett Langdon <me@brett.is>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
