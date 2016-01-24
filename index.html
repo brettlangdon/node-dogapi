@@ -1223,10 +1223,10 @@ dogapi.screenboard.share(1234, function(err, res){
 <div class="row">
 <h2 class="bg-primary" style="text-indent:1rem">search</h2></div>
 <ul class="nav nav-pills">
-<li role"presentation"><a href="#search-search">search</a></li>
+<li role"presentation"><a href="#search-query">query</a></li>
 </ul>
-<div class="function row" id="search-search">
-<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">search(query, callback)</h3>
+<div class="function row" id="search-query">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">query(query, callback)</h3>
 <div class="col-md-6">
 <p>search for metrics and hosts from the past 24 hours</p>
 <h4>Parameters:</h4>
@@ -1247,7 +1247,7 @@ var options = {
 };
 dogapi.initialize(options);
 var query = &quot;app&quot;;
-dogapi.search.search(query, function(err, res){
+dogapi.search.query(query, function(err, res){
   console.dir(res);
 });
 </code></pre>
