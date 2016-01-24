@@ -1,6 +1,10 @@
 node-dogapi
 ===========
 
+[![npm version](https://badge.fury.io/js/dogapi.svg)](https://www.npmjs.com/package/dogapi)
+[![Build Status](https://travis-ci.org/brettlangdon/node-dogapi.svg?branch=master)](https://travis-ci.org/brettlangdon/node-dogapi)
+[![Dependency Status](https://david-dm.org/brettlangdon/node-dogapi.svg)](https://david-dm.org/brettlangdon/node-dogapi)
+
 Datadog API Node.JS Client.
 
 Official Datadog API Documentation: http://docs.datadoghq.com/api/
