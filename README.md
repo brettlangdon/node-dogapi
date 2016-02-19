@@ -100,6 +100,66 @@ Please run `dogapi --help` to see current usage documentation for the tool.
 
 Every api method available in `dogapi` is exposed via the cli tool.
 
+## Major changes from 1.x.x to 2.x.x
+We have updated major versions for this library due to a backwards incompatible change to the argument format for `dogapi.metric.send` and `dogapi.metric.send_all`.
+
+### dogapi.metric.send
+Previously in `1.x.x`:
+
+```javascript
+var now = parseInt(new Date().getTime() / 1000);
+dogapi.metric.send("metric.name", 50);
+dogapi.metric.send("metric.name", [now, 50]);
+```
+
+Now in `2.x.x`:
+
+```javascript
+var now = parseInt(new Date().getTime() / 1000);
+dogapi.metric.send("metric.name", 50);
+dogapi.metric.send("metric.name", [50, 100]);
+dogapi.metric.send("metric.name", [[now, 50]]);
+```
+
+### dogapi.metric.send_all
+Previously in `1.x.x`:
+
+```javascript
+var now = parseInt(new Date().getTime() / 1000);
+var metrics = [
+  {
+    metric: "metric.name",
+    points: [now, 50]
+  },
+  {
+    metric: "metric.name",
+    points: 50
+  }
+];
+dogapi.metric.send_all(metrics);
+```
+
+Now in `2.x.x`:
+
+```javascript
+var now = parseInt(new Date().getTime() / 1000);
+var metrics = [
+  {
+    metric: "metric.name",
+    points: [[now, 50]]
+  },
+  {
+    metric: "metric.name",
+    points: [50, 100]
+  },
+  {
+    metric: "metric.name",
+    points: 50
+  }
+];
+dogapi.metric.send_all(metrics);
+```
+
 ## License
 
 The MIT License (MIT)

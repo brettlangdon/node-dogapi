@@ -618,8 +618,8 @@ dogapi.infrastructure.search(&quot;hosts:database&quot;, function(err, res){
 <dd><p>the metric name</p>
 </dd>
 <dt>points</dt>
-<dd><p>single datapoint or array of [timestamp, datapoint], if a single point
-is given &quot;now&quot; is used as the timestamp</p>
+<dd><p>a single data point (e.g. <code>50</code>), an array of data points (e.g. <code>[50, 100]</code>)
+or an array of <code>[timestamp, value]</code> elements (e.g. <code>[[now, 50], [now, 100]]</code>)</p>
 </dd>
 <dt>extra</dt>
 <dd><p><em>optional</em>, object which can contain the following keys</p>
@@ -644,8 +644,11 @@ dogapi.initialize(options);
 dogapi.metric.send(&quot;my.metric&quot;, 1000, function(err, results){
   console.dir(results);
 });
+dogapi.metric.send(&quot;my.metric&quot;, [500, 1000], function(err, results){
+  console.dir(results);
+});
 var now = parseInt(new Date().getTime() / 1000);
-dogapi.metric.send(&quot;my.metric&quot;, [now, 1000], function(err, results){
+dogapi.metric.send(&quot;my.metric&quot;, [[now, 1000]], function(err, results){
   console.dir(results);
 });
 </code></pre>
@@ -661,7 +664,7 @@ dogapi.metric.send(&quot;my.metric&quot;, [now, 1000], function(err, results){
 <dd><p>an array of metrics where each element is an object with the following keys</p>
 <ul>
 <li>metric: the name of the metric</li>
-<li>points: a single datapoint or an array of [timestamp, datapoint] (same as <code>dogapi.metric.send</code>)</li>
+<li>points: a single data point (e.g. <code>50</code>), an array of data points (e.g. <code>[50, 100]</code>) or an array of <code>[timestamp, value]</code> elements (e.g. <code>[[now, 50], [now, 100]]</code>)</li>
 <li>tags: an array of &quot;tag:value&quot;&#39;s</li>
 <li>host: the source hostname to use for the metrics</li>
 <li>metric_type: the type of metric to use (&quot;gauge&quot; or &quot;counter&quot;) [default: gauge]</li>
@@ -683,8 +686,12 @@ var now = parseInt(new Date().getTime() / 1000);
 var metrics = [
   {
     metric: &quot;my.metric&quot;,
-    points: [now, 1000],
+    points: [[now, 1000]],
     tags: [&quot;tag:value&quot;]
+  },
+  {
+    metric: &quot;another.metric&quot;,
+    points: [50, 1000]
   },
   {
     metric: &quot;another.metric&quot;,
