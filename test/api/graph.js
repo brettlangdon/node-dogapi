@@ -3,6 +3,7 @@ var client = require("../../lib/client");
 var extend = require("extend");
 var graph = require("../../lib/api/graph");
 var sinon = require("sinon");
+var querystring = require("querystring");
 
 describe("api/graph", function(){
     var stub_request;
@@ -25,9 +26,15 @@ describe("api/graph", function(){
                     }
                 ]
             };
+            var options = {
+                timeframe: "1_hour",
+                size: "large",
+                legend: "yes",
+                title: "test graph embed"
+            };
 
             // Make our api call
-            graph.createEmbed(graphJSON, "1_hour", "large", "yes", "test graph embed");
+            graph.createEmbed(graphJSON, options);
 
             // Assert we properly called `client.request`
             assert(stub_request.calledOnce);
@@ -38,9 +45,14 @@ describe("api/graph", function(){
 
             // Properly formatted body and content-type
             var params = call_args[2];
-            var expectedBody = "graph_json=" + encodeURIComponent(JSON.stringify(graphJSON)) +
-                "&timeframe=1_hour&size=large&legend=yes&title=test%20graph%20embed";
-            assert.equal(params.body, expectedBody);
+            var expectedBody = {
+                graph_json: JSON.stringify(graphJSON),
+                timeframe: "1_hour",
+                size: "large",
+                legend: "yes",
+                title: "test graph embed"
+            };
+            assert.deepEqual(querystring.parse(params.body), expectedBody);
             assert(params.contentType, "application/x-form-urlencoded");
         });
 
@@ -63,8 +75,10 @@ describe("api/graph", function(){
 
             // Properly formatted body
             var params = call_args[2];
-            var expectedBody = "graph_json=" + encodeURIComponent(JSON.stringify(graphJSON));
-            assert.equal(params.body, expectedBody);
+            var expectedBody = {
+                graph_json: JSON.stringify(graphJSON)
+            };
+            assert.deepEqual(querystring.parse(params.body), expectedBody);
         });
     });
 });
