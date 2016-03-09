@@ -38,10 +38,33 @@ describe("api/graph", function(){
 
             // Properly formatted body and content-type
             var params = call_args[2];
-            var expectedBody = "graph_json=" + JSON.stringify(graphJSON) +
-                "&timeframe=1_hour&size=large&legend=yes&title=test graph embed";
+            var expectedBody = "graph_json=" + encodeURIComponent(JSON.stringify(graphJSON)) +
+                "&timeframe=1_hour&size=large&legend=yes&title=test%20graph%20embed";
             assert.equal(params.body, expectedBody);
             assert(params.contentType, "application/x-form-urlencoded");
+        });
+
+        it("should only require graph_json", function(){
+            var graphJSON = {
+                viz: "timeseries",
+                requests: [
+                    {
+                        q: "system.cpu.idle{*}"
+                    }
+                ]
+            };
+
+            // Make our api call
+            graph.createEmbed(graphJSON);
+
+            // Assert we properly called `client.request`
+            assert(stub_request.calledOnce);
+            var call_args = stub_request.getCall(0).args;
+
+            // Properly formatted body
+            var params = call_args[2];
+            var expectedBody = "graph_json=" + encodeURIComponent(JSON.stringify(graphJSON));
+            assert.equal(params.body, expectedBody);
         });
     });
 });
