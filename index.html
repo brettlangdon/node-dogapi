@@ -455,6 +455,7 @@ dogapi.downtime.getAll(function(err, res){
 <h2 class="bg-primary" style="text-indent:1rem">graph</h2></div>
 <ul class="nav nav-pills">
 <li role"presentation"><a href="#graph-snapshot">snapshot</a></li>
+<li role"presentation"><a href="#graph-createEmbed">createEmbed</a></li>
 </ul>
 <div class="function row" id="graph-snapshot">
 <h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">snapshot(query, from, to, eventQuery, callback)</h3>
@@ -490,6 +491,66 @@ var query = &quot;system.cpu.idle{*}&quot;;
 var to = dogapi.now();
 var from = to - 3600;  // an hour ago
 dogapi.graph.snapshot(query, from, to, function(err, res){
+  console.dir(res);
+});
+</code></pre>
+</div>
+</div>
+<div class="function row" id="graph-createEmbed">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">createEmbed(graph_json, options, options["timeframe"], options["size"], options["legend"], options["title"], callback)</h3>
+<div class="col-md-6">
+<p>create an embed graph of a metric query</p>
+<h4>Parameters:</h4>
+<dl>
+<dt>graph_json</dt>
+<dd><p>The request array to pass create in the embed</p>
+</dd>
+<dt>options</dt>
+<dd><p><em>optional</em>, object of extra parameters to pass to the embed create (see options[*] params)</p>
+</dd>
+<dt>options["timeframe"]</dt>
+<dd><p><em>optional</em>, one of (&quot;1_hour&quot;, &quot;4_hours&quot;, &quot;1_day&quot;, &quot;2_days&quot;, and &quot;1_week&quot;)</p>
+</dd>
+<dt>options["size"]</dt>
+<dd><p><em>optional</em>, one of (&quot;small&quot;, &quot;medium&quot;, &quot;large&quot;, &quot;xlarge&quot;)</p>
+</dd>
+<dt>options["legend"]</dt>
+<dd><p><em>optional</em>, &quot;yes&quot; or &quot;no&quot;</p>
+</dd>
+<dt>options["title"]</dt>
+<dd><p><em>optional</em>, the title of the embed</p>
+</dd>
+<dt>callback</dt>
+<dd><p>function(err, res)</p>
+</dd>
+</dl>
+</div>
+<div class="col-md-6">
+<pre><code class="lang-javascript">var dogapi = require(&quot;dogapi&quot;);
+var options = {
+  api_key: &quot;api_key&quot;,
+  app_key: &quot;app_key&quot;
+};
+dogapi.initialize(options);
+var query = &quot;system.cpu.idle{*}&quot;;
+var graphJSON = {
+       viz: &quot;timeseries&quot;,
+       requests: [
+         {
+           q: query,
+           aggregator: &quot;avg&quot;,
+           conditional_formats: [],
+           type: &quot;area&quot;
+         }
+       ]
+     }
+var options = {
+    timeframe: &quot;1_hour&quot;,
+    size: &quot;xlarge&quot;,
+    legend: &quot;yes&quot;,
+    title: &quot;my awesome embed&quot;
+};
+dogapi.graph.createEmbed(graphJSON, options, function(err, res){
   console.dir(res);
 });
 </code></pre>
