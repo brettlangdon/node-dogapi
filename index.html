@@ -687,7 +687,7 @@ or an array of <code>[timestamp, value]</code> elements (e.g. <code>[[now, 50], 
 <ul>
 <li>host: the host source of the metric</li>
 <li>tags: array of &quot;tag:value&quot;&#39;s to use for the metric</li>
-<li>metric_type: which metric type to use (&quot;gauge&quot; or &quot;counter&quot;) [default: gauge]</li>
+<li>metric_type|type: which metric type to use (&quot;gauge&quot; or &quot;counter&quot;) [default: gauge]</li>
 </ul>
 </dd>
 <dt>callback</dt>
@@ -712,6 +712,9 @@ var now = parseInt(new Date().getTime() / 1000);
 dogapi.metric.send(&quot;my.metric&quot;, [[now, 1000]], function(err, results){
   console.dir(results);
 });
+dogapi.metric.send(&quot;my.counter&quot;, 5, {type: &quot;counter&quot;}, function(err, results){
+  console.dir(results);
+});
 </code></pre>
 </div>
 </div>
@@ -728,7 +731,7 @@ dogapi.metric.send(&quot;my.metric&quot;, [[now, 1000]], function(err, results){
 <li>points: a single data point (e.g. <code>50</code>), an array of data points (e.g. <code>[50, 100]</code>) or an array of <code>[timestamp, value]</code> elements (e.g. <code>[[now, 50], [now, 100]]</code>)</li>
 <li>tags: an array of &quot;tag:value&quot;&#39;s</li>
 <li>host: the source hostname to use for the metrics</li>
-<li>metric_type: the type of metric to use (&quot;gauge&quot; or &quot;counter&quot;) [default: gauge]</li>
+<li>metric_type|type: the type of metric to use (&quot;gauge&quot; or &quot;counter&quot;) [default: gauge]</li>
 </ul>
 </dd>
 <dt>callback</dt>
