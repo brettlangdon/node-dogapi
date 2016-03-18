@@ -29,8 +29,8 @@ describe("api/metrics", function(){
             assert.equal(call_args[1], "/series");
 
             // Properly formatted body
-            // { body: series: [ {metric: "metric.send", host: undefined, tags: undefined, metric_type: undefined} ] }
-            // DEV: host/tags/metric_type are optional and should be undefined for this case
+            // { body: series: [ {metric: "metric.send", host: undefined, tags: undefined, type: undefined} ] }
+            // DEV: host/tags/type are optional and should be undefined for this case
             var data = call_args[2];
             assert(data.hasOwnProperty("body"));
             assert(data.body.hasOwnProperty("series"));
@@ -53,8 +53,8 @@ describe("api/metrics", function(){
             assert.equal(first_series.host, undefined);
             assert(first_series.hasOwnProperty("tags"));
             assert.equal(first_series.tags, undefined);
-            assert(first_series.hasOwnProperty("metric_type"));
-            assert.equal(first_series.metric_type, undefined);
+            assert(first_series.hasOwnProperty("type"));
+            assert.equal(first_series.type, undefined);
         });
 
         it("should properly normalize values to points", function(){
@@ -131,6 +131,57 @@ describe("api/metrics", function(){
             assert(Array.isArray(point));
             assert.deepEqual(point, [now, 1000]);
         });
+
+        it("should properly set metric type", function(){
+            // Make our api call
+            metric.send("metrics.send.counter", 5, {type: "counter"});
+
+            // Assert we called `client.request` with the correct `points`
+            assert(stub_request.calledOnce);
+            var call_args = stub_request.getCall(0).args;
+            // { body: series: [ {points: [], }, ] }
+            var body = call_args[2].body;
+            assert.equal(body.series.length, 1);
+
+            // Assert we have only 1 series
+            // series = [ {metric: "", ...}, ... ]
+            var series = body.series;
+            assert(Array.isArray(series));
+            assert.equal(series.length, 1);
+
+            // Assert the first series is properly formatted
+            // first_series = {metric: "", type: "counter", points: [], ...}
+            var first_series = series[0]
+            assert.equal(first_series.metric, "metrics.send.counter");
+            assert(first_series.hasOwnProperty("type"));
+            assert.equal(first_series.type, "counter");
+        });
+
+        it("should properly set convert metric_type to type", function(){
+            // Make our api call
+            metric.send("metrics.send.counter", 5, {metric_type: "counter"});
+
+            // Assert we called `client.request` with the correct `points`
+            assert(stub_request.calledOnce);
+            var call_args = stub_request.getCall(0).args;
+            // { body: series: [ {points: [], }, ] }
+            var body = call_args[2].body;
+            assert.equal(body.series.length, 1);
+
+
+            // Assert we have only 1 series
+            // series = [ {metric: "", ...}, ... ]
+            var series = body.series;
+            assert(Array.isArray(series));
+            assert.equal(series.length, 1);
+
+            // Assert the first series is properly formatted
+            // first_series = {metric: "", type: "counter", points: [], ...}
+            var first_series = series[0]
+            assert.equal(first_series.metric, "metrics.send.counter");
+            assert(first_series.hasOwnProperty("type"));
+            assert.equal(first_series.type, "counter");
+        });
     });
 
     describe("#send_all", function(){
@@ -153,8 +204,8 @@ describe("api/metrics", function(){
             assert.equal(call_args[1], "/series");
 
             // Properly formatted body
-            // { body: series: [ {metric: "metric.send_all", host: undefined, tags: undefined, metric_type: undefined} ] }
-            // DEV: host/tags/metric_type are optional and should be undefined for this case
+            // { body: series: [ {metric: "metric.send_all", host: undefined, tags: undefined, type: undefined} ] }
+            // DEV: host/tags/type are optional and should be undefined for this case
             var data = call_args[2];
             assert(data.hasOwnProperty("body"));
             assert(data.body.hasOwnProperty("series"));
@@ -221,6 +272,84 @@ describe("api/metrics", function(){
             assert.equal(points.length, 1);
             assert.equal(points[0].length, 2);
             assert.equal(points[0][1], 1000);
+        });
+
+        it("should properly send metric type", function(){
+            // Make our api call
+            var metrics = [
+                {
+                    metric: "metric.send.counter",
+                    points: 5,
+                    type: "counter"
+                }
+            ];
+            metric.send_all(metrics);
+
+            // Assert we properly called `client.request`
+            assert(stub_request.calledOnce);
+            var call_args = stub_request.getCall(0).args;
+            // Method and endpoint are correct
+            assert.equal(call_args[0], "POST");
+            assert.equal(call_args[1], "/series");
+
+            // Properly formatted body
+            // { body: series: [ {metric: "metric.send.counter", host: undefined, tags: undefined, type: "counter"} ] }
+            // DEV: host/tags are optional and should be undefined for this case
+            var data = call_args[2];
+            assert(data.hasOwnProperty("body"));
+            assert(data.body.hasOwnProperty("series"));
+
+            // Assert we have only 1 series
+            // series = [ {metric: "", ...}, ... ]
+            var series = data.body.series;
+            assert(Array.isArray(series));
+            assert.equal(series.length, 1);
+
+            // Assert the first series is properly formatted
+            // first_series = {metric: "", type: "counter", points: [], ...}
+            var first_series = series[0]
+            assert.equal(first_series.metric, "metric.send.counter");
+            assert(Array.isArray(first_series.points));
+            assert.deepEqual(first_series.type, "counter");
+        });
+
+        it("should properly send metric_type as type", function(){
+            // Make our api call
+            var metrics = [
+                {
+                    metric: "metric.send.counter",
+                    points: 5,
+                    metric_type: "counter"
+                }
+            ];
+            metric.send_all(metrics);
+
+            // Assert we properly called `client.request`
+            assert(stub_request.calledOnce);
+            var call_args = stub_request.getCall(0).args;
+            // Method and endpoint are correct
+            assert.equal(call_args[0], "POST");
+            assert.equal(call_args[1], "/series");
+
+            // Properly formatted body
+            // { body: series: [ {metric: "metric.send.counter", host: undefined, tags: undefined, type: "counter"} ] }
+            // DEV: host/tags are optional and should be undefined for this case
+            var data = call_args[2];
+            assert(data.hasOwnProperty("body"));
+            assert(data.body.hasOwnProperty("series"));
+
+            // Assert we have only 1 series
+            // series = [ {metric: "", ...}, ... ]
+            var series = data.body.series;
+            assert(Array.isArray(series));
+            assert.equal(series.length, 1);
+
+            // Assert the first series is properly formatted
+            // first_series = {metric: "", type: "counter", points: [], ...}
+            var first_series = series[0]
+            assert.equal(first_series.metric, "metric.send.counter");
+            assert(Array.isArray(first_series.points));
+            assert.deepEqual(first_series.type, "counter");
         });
     });
 });
