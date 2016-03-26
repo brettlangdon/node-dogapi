@@ -3,6 +3,7 @@ var dogapi = require("../");
 var json = require("../lib/json");
 var minimist = require("minimist");
 var rc = require("rc");
+var EOL = require("os").EOL;
 
 var config = rc("dogapi", {
     api_key: null,
@@ -36,7 +37,7 @@ for(var key in dogapi){
 }
 
 usage = usage.concat(help);
-usage = usage.join("\r\n");
+usage = usage.join(EOL);
 var args = minimist(process.argv);
 
 var command = args._[2];
@@ -69,9 +70,9 @@ if(command === "now"){
     } else {
         var commandUsage = ["Usage:"].concat(dogapi[command].getUsage());
         if(dogapi[command].hasOwnProperty("getHelp") && typeof dogapi[command].getHelp === "function"){
-            commandUsage = commandUsage.concat(["\r\n"], dogapi[command].getHelp());
+            commandUsage = commandUsage.concat([EOL], dogapi[command].getHelp());
         }
-        console.log(commandUsage.join("\r\n").replace(/\$\{command\}/g, "  dogapi"));
+        console.log(commandUsage.join(EOL).replace(/\$\{command\}/g, "  dogapi"));
     }
 } else if(args.version){
     console.log(require("../package.json").version);
