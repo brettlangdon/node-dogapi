@@ -1183,27 +1183,21 @@ dogapi.monitor.unmuteAll(function(err, res){
 <li role"presentation"><a href="#screenboard-share">share</a></li>
 </ul>
 <div class="function row" id="screenboard-create">
-<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">create(title, description, graphs, options, callback)</h3>
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">create(boardTitle, widgets, options, callback)</h3>
 <div class="col-md-6">
 <p>create a new screenboard</p>
 <h4>Parameters:</h4>
 <dl>
-<dt>title</dt>
+<dt>boardTitle</dt>
 <dd><p>the name of the screenboard</p>
 </dd>
-<dt>description</dt>
-<dd><p>description of the screenboard</p>
-</dd>
-<dt>graphs</dt>
-<dd><p>an array of objects which required the following keys</p>
-<ul>
-<li>title: the name of the graph</li>
-<li>widgets: an array of widgets, see <a href="http://docs.datadoghq.com/api/screenboards/">http://docs.datadoghq.com/api/screenboards/</a> for more info</li>
-</ul>
+<dt>widgets</dt>
+<dd><p>an array of widgets, see <a href="http://docs.datadoghq.com/api/screenboards/">http://docs.datadoghq.com/api/screenboards/</a> for more info</p>
 </dd>
 <dt>options</dt>
 <dd><p><em>optional</em>, a object which can contain any of the following keys</p>
 <ul>
+<li>description: description of the screenboard</li>
 <li>templateVariables: |
 an array of objects with the following keys<ul>
 <li>name: the name of the variable</li>
@@ -1213,6 +1207,7 @@ an array of objects with the following keys<ul>
 </li>
 <li>width: the width of the screenboard in pixels</li>
 <li>height: the height of the screenboard in pixels</li>
+<li>readOnly: the read-only status of the screenboard</li>
 </ul>
 </dd>
 <dt>callback</dt>
@@ -1227,9 +1222,8 @@ var options = {
   app_key: &quot;app_key&quot;
 };
 dogapi.initialize(options);
-var title = &quot;my screenboard&quot;;
-var description = &quot;it is super awesome&quot;;
-var graphs = [
+var boardTitle = &quot;my screenboard&quot;;
+var widgets = [
   {
     type: &quot;image&quot;,
     height: 20,
@@ -1246,10 +1240,11 @@ var options = {
       prefix: &quot;host&quot;,
       &quot;default&quot;: &quot;host:my-host&quot;
     }
-  ]
+  ],
+  description: &quot;it is super awesome&quot;
 };
 dogapi.screenboard.create(
-  title, description, graphs, options,
+  boardTitle, widgets, options,
   function(err, res){
     console.dir(res);
   }
