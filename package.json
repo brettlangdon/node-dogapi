@@ -1,6 +1,6 @@
 {
   "name": "dogapi",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "description": "Datadog API Node.JS Client",
   "main": "lib/index.js",
   "scripts": {
