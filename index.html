@@ -1177,6 +1177,7 @@ dogapi.monitor.unmuteAll(function(err, res){
 <h2 class="bg-primary" style="text-indent:1rem">screenboard</h2></div>
 <ul class="nav nav-pills">
 <li role"presentation"><a href="#screenboard-create">create</a></li>
+<li role"presentation"><a href="#screenboard-update">update</a></li>
 <li role"presentation"><a href="#screenboard-remove">remove</a></li>
 <li role"presentation"><a href="#screenboard-get">get</a></li>
 <li role"presentation"><a href="#screenboard-getAll">getAll</a></li>
@@ -1245,6 +1246,72 @@ var options = {
 };
 dogapi.screenboard.create(
   boardTitle, widgets, options,
+  function(err, res){
+    console.dir(res);
+  }
+);
+</code></pre>
+</div>
+</div>
+<div class="function row" id="screenboard-update">
+<h3 class="bg-info" style="text-indent:.5rem;padding:.5rem;margin-top:.5rem">update(boardId, boardTitle, widgets, options, callback)</h3>
+<div class="col-md-6">
+<p>update an existing screenboard</p>
+<h4>Parameters:</h4>
+<dl>
+<dt>boardId</dt>
+<dd><p>the id of the screenboard to update</p>
+</dd>
+<dt>boardTitle</dt>
+<dd><p>the name of the screenboard</p>
+</dd>
+<dt>widgets</dt>
+<dd><p>an array of widgets, see <a href="http://docs.datadoghq.com/api/screenboards/">http://docs.datadoghq.com/api/screenboards/</a> for more info</p>
+</dd>
+<dt>options</dt>
+<dd><p><em>optional</em>, a object which can contain any of the following keys</p>
+<ul>
+<li>description: description of the screenboard</li>
+<li>templateVariables: |
+an array of objects with the following keys<ul>
+<li>name: the name of the variable</li>
+<li>prefix: <em>optional</em>, the tag prefix for this variable</li>
+<li>default: <em>optional</em>, the default value for this tag</li>
+</ul>
+</li>
+<li>width: the width of the screenboard in pixels</li>
+<li>height: the height of the screenboard in pixels</li>
+<li>readOnly: the read-only status of the screenboard</li>
+</ul>
+</dd>
+<dt>callback</dt>
+<dd><p>function(err, res)</p>
+</dd>
+</dl>
+</div>
+<div class="col-md-6">
+<pre><code class="lang-javascript">var dogapi = require(&quot;dogapi&quot;);
+var options = {
+  api_key: &quot;api_key&quot;,
+  app_key: &quot;app_key&quot;
+};
+dogapi.initialize(options);
+var boardTitle = &quot;my screenboard&quot;;
+var widgets = [
+  {
+    type: &quot;image&quot;,
+    height: 20,
+    width: 32,
+    y: 7,
+    x: 32,
+    url: &quot;https://path/to/image.jpg&quot;
+  }
+];
+var options = {
+  description: &quot;it is super awesome&quot;
+};
+dogapi.screenboard.update(
+  1234, boardTitle, widgets, options,
   function(err, res){
     console.dir(res);
   }
