@@ -909,6 +909,7 @@ dogapi.metric.query(then, now, query, function(err, res){
 <ul>
 <li>name: the name of the monitor</li>
 <li>message: the message for the monitor</li>
+<li>tags: a list of strings as tags to associate with the monitor</li>
 <li>options: an object, to see available options please see the <a href="http://docs.datadoghq.com/api/#monitor-create">monitor create</a> docs</li>
 </ul>
 </dd>
@@ -973,6 +974,7 @@ dogapi.monitor.get(1234, function(err, res){
 <ul>
 <li>group_states: an array containing any of the following &quot;all&quot;, &quot;alert&quot;, &quot;warn&quot;, or &quot;no data&quot;</li>
 <li>tags: an array of &quot;tag:value&quot;&#39;s to filter on</li>
+<li>monitor_tags: a comma separated list indicating what service and/or custom tags</li>
 </ul>
 </dd>
 <dt>callback</dt>
@@ -1010,6 +1012,7 @@ dogapi.monitor.getAll(function(err, res){
 <ul>
 <li>name: the name of the monitor</li>
 <li>message: the message for the monitor</li>
+<li>tags: a list of strings as tags to associate with the monitor</li>
 <li>options: an object, to see available options please see the <a href="http://docs.datadoghq.com/api/#monitor-create">monitor create</a> docs</li>
 </ul>
 </dd>
