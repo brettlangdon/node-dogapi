@@ -23,11 +23,6 @@
     "dog api"
   ],
   "author": "Brett Langdon <me@brett.is> (http://brett.is)",
-  "contributors": [
-    "colinjonesx (http://www.thetestpeople.com)",
-    "dalehamel (http://blog.srvthe.net)",
-    "egut (https://github.com/egut)"
-  ],
   "license": "MIT",
   "readmeFilename": "README.md",
   "gitHead": "f388635a5ab4f4da25702dc0999385d437bdf2bc",
