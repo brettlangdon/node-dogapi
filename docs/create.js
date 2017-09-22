@@ -54,9 +54,9 @@ glob(match, function(er, files){
 
     var output = "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n";
     output += "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n";
-    output += "<script type=\"text/javascript\" src=\"//highlightjs.org/static/highlight.pack.js\">\n</script>\n<script type=\"text/javascript\">\ndocument.addEventListener(\"DOMContentLoaded\", function(){hljs.initHighlightingOnLoad();});</script>\n";
-    output += "<link rel=\"stylesheet\" href=\"//highlightjs.org/static/styles/github.css\" />\n";
-    output += "<link rel=\"stylesheet\" href=\"//getbootstrap.com/dist/css/bootstrap.min.css\" />\n";
+    output += "<script type=\"text/javascript\" src=\"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js\">\n</script>\n<script type=\"text/javascript\">\ndocument.addEventListener(\"DOMContentLoaded\", function(){hljs.initHighlightingOnLoad();});</script>\n";
+    output += "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css\" />\n";
+    output += "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css\" />\n";
     output += "</head>\n<body>\n";
     output += "<a class=\"btn btn-default\" href=\"#top\" style=\"position:fixed;bottom:1rem;right:1rem;z-index:100000;color:#000\">Jump To Top</a>\n";
     output += "<div id=\"top\" class=\"container-fluid\">\n";
