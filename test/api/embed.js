@@ -1,12 +1,14 @@
-var assert = require("assert");
-var client = require("../../lib/client");
-var extend = require("extend");
-var embed = require("../../lib/api/embed");
-var sinon = require("sinon");
-var querystring = require("querystring");
+const assert = require("assert");
+const Client = require("../../lib/client");
+const extend = require("extend");
+const Embed = require("../../lib/api/embed");
+const sinon = require("sinon");
+const querystring = require("querystring");
 
 describe("api/embed", function(){
-    var stub_request;
+    const client = new Client({});
+    const embed = Embed(client);
+    let stub_request;
     beforeEach(function(){
         // Setup `client.request` as a stub
         stub_request = sinon.stub(client, "request");
@@ -18,7 +20,7 @@ describe("api/embed", function(){
     });
     describe("#create", function(){
         it("should make a valid api call", function(){
-            var graphJSON = {
+            const graphJSON = {
                 viz: "timeseries",
                 requests: [
                     {
@@ -26,7 +28,7 @@ describe("api/embed", function(){
                     }
                 ]
             };
-            var options = {
+            const options = {
                 timeframe: "1_hour",
                 size: "large",
                 legend: "yes",
@@ -38,14 +40,14 @@ describe("api/embed", function(){
 
             // Assert we properly called `client.request`
             assert(stub_request.calledOnce);
-            var call_args = stub_request.getCall(0).args;
+            const call_args = stub_request.getCall(0).args;
             // Method and endpoint are correct
             assert.equal(call_args[0], "POST");
             assert.equal(call_args[1], "/graph/embed");
 
             // Properly formatted body and content-type
-            var params = call_args[2];
-            var expectedBody = {
+            const params = call_args[2];
+            const expectedBody = {
                 graph_json: JSON.stringify(graphJSON),
                 timeframe: "1_hour",
                 size: "large",
@@ -57,7 +59,7 @@ describe("api/embed", function(){
         });
 
         it("should only require graph_json", function(){
-            var graphJSON = {
+            const graphJSON = {
                 viz: "timeseries",
                 requests: [
                     {
@@ -71,11 +73,11 @@ describe("api/embed", function(){
 
             // Assert we properly called `client.request`
             assert(stub_request.calledOnce);
-            var call_args = stub_request.getCall(0).args;
+            const call_args = stub_request.getCall(0).args;
 
             // Properly formatted body
-            var params = call_args[2];
-            var expectedBody = {
+            const params = call_args[2];
+            const expectedBody = {
                 graph_json: JSON.stringify(graphJSON)
             };
             assert.deepEqual(querystring.parse(params.body), expectedBody);
