@@ -8,3 +8,10 @@ node_js:
   - "9"
   - "10"
   - "node"
+
+install:
+  - npm install
+
+script:
+  - npm run lint
+  - npm test
