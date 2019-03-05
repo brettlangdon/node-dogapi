@@ -20,20 +20,11 @@
   ],
   "rules": {
     "promise/no-native": "off",
-    "strict": "off"
+    "strict": "off",
+    "fp/no-arguments": "warn",
+    "no-param-reassign": "warn",
+    "prefer-rest-params": "warn",
+    "fp/no-loops": "warn"
   },
-  "overrides": [
-    {
-      "files": [ "scripts/migrate*.js", "lib/*.js" ],
-      "env": {
-        "mongo": true
-      }
-    },
-    {
-      "files": ["**/test/**"],
-      "rules": {
-        "unicorn/filename-case": "off"
-      }
-    }
-  ]
+  "overrides": []
 }
