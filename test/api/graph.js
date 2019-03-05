@@ -1,10 +1,8 @@
-var assert = require("assert");
-var client = require("../../lib/client");
-var extend = require("extend");
-var graph = require("../../lib/api/graph");
-var sinon = require("sinon");
-var querystring = require("querystring");
+const assert = require('assert');
+const querystring = require('querystring');
+const extend = require('extend');
+const sinon = require('sinon');
+const client = require('../../lib/client');
+const graph = require('../../lib/api/graph');
 
-describe("api/graph", function(){
-
-});
+describe('api/graph', function() {});
