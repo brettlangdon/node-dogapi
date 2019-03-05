@@ -1,6 +1,5 @@
 const assert = require('assert');
 const querystring = require('querystring');
-const extend = require('extend');
 const sinon = require('sinon');
 const Client = require('../../lib/client');
 const Embed = require('../../lib/api/embed');
@@ -9,16 +8,17 @@ describe('api/embed', function() {
   const client = new Client({});
   const embed = Embed(client);
   let stub_request;
-  beforeEach(function() {
-    // Setup `client.request` as a stub
-    stub_request = sinon.stub(client, 'request');
-  });
-  afterEach(function() {
-    // Reset the original `client.request`
-    stub_request.restore();
-    stub_request = null;
-  });
+
   describe('#create', function() {
+    beforeEach(function() {
+      // Setup `client.request` as a stub
+      stub_request = sinon.stub(client, 'request');
+    });
+    afterEach(function() {
+      // Reset the original `client.request`
+      stub_request.restore();
+      stub_request = null;
+    });
     it('should make a valid api call', function() {
       const graphJSON = {
         viz: 'timeseries',

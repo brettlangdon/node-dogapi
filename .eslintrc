@@ -26,5 +26,13 @@
     "prefer-rest-params": "warn",
     "fp/no-loops": "warn"
   },
-  "overrides": []
+  "overrides": [
+    {
+      "files": [ "bin/*" ],
+      "rules": {
+        "no-console": "off",
+        "no-continue": "warn"
+      }
+    }
+  ]
 }

@@ -1,5 +1,4 @@
 const assert = require('assert');
-const extend = require('extend');
 const sinon = require('sinon');
 const Client = require('../../lib/client');
 const Metric = require('../../lib/api/metric');
