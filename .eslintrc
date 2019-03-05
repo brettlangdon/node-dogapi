@@ -1,0 +1,39 @@
+{
+  "env": {
+    "commonjs": true,
+    "es6": true,
+    "node": true
+  },
+  "extends": [
+    "plugin:@coorpacademy/coorpacademy/core",
+    "plugin:@coorpacademy/coorpacademy/mocha",
+    "plugin:@coorpacademy/coorpacademy/es20XX",
+    "plugin:@coorpacademy/coorpacademy/lodash-fp",
+    "plugin:@coorpacademy/coorpacademy/prettier"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2017,
+    "sourceType": "module"
+  },
+  "plugins": [
+    "@coorpacademy/coorpacademy"
+  ],
+  "rules": {
+    "promise/no-native": "off",
+    "strict": "off"
+  },
+  "overrides": [
+    {
+      "files": [ "scripts/migrate*.js", "lib/*.js" ],
+      "env": {
+        "mongo": true
+      }
+    },
+    {
+      "files": ["**/test/**"],
+      "rules": {
+        "unicorn/filename-case": "off"
+      }
+    }
+  ]
+}
