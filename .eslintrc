@@ -1,0 +1,38 @@
+{
+  "env": {
+    "commonjs": true,
+    "es6": true,
+    "node": true
+  },
+  "extends": [
+    "plugin:@coorpacademy/coorpacademy/core",
+    "plugin:@coorpacademy/coorpacademy/mocha",
+    "plugin:@coorpacademy/coorpacademy/es20XX",
+    "plugin:@coorpacademy/coorpacademy/lodash-fp",
+    "plugin:@coorpacademy/coorpacademy/prettier"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2017,
+    "sourceType": "module"
+  },
+  "plugins": [
+    "@coorpacademy/coorpacademy"
+  ],
+  "rules": {
+    "promise/no-native": "off",
+    "strict": "off",
+    "fp/no-arguments": "warn",
+    "no-param-reassign": "warn",
+    "prefer-rest-params": "warn",
+    "fp/no-loops": "warn"
+  },
+  "overrides": [
+    {
+      "files": [ "bin/*" ],
+      "rules": {
+        "no-console": "off",
+        "no-continue": "warn"
+      }
+    }
+  ]
+}
