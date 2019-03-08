@@ -1,10 +1,12 @@
-var assert = require("assert");
-var client = require("../../lib/client");
-var extend = require("extend");
-var metric = require("../../lib/api/metric");
-var sinon = require("sinon");
+const assert = require("assert");
+const Client = require("../../lib/client");
+const extend = require("extend");
+const Metric = require("../../lib/api/metric");
+const sinon = require("sinon");
 
 describe("api/metrics", function(){
+    const client = new Client({});
+    const metric = Metric(client);
     var stub_request;
     beforeEach(function(){
         // Setup `client.request` as a stub
