@@ -44,6 +44,8 @@ var dogapi = require("dogapi");
 var options = {
  api_key: "YOUR_KEY_HERE",
  app_key: "YOUR_KEY_HERE",
+ // if you are on the Datadog EU site, you need to overwrite the default value of api_host key:
+ // api_host: "app.datadoghq.eu"
 };
 
 dogapi.initialize(options);
