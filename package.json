@@ -30,7 +30,7 @@
     "extend": "^3.0.0",
     "json-bigint": "^0.1.4",
     "lodash": "^4.17.10",
-    "minimist": "^1.1.1",
+    "minimist": "^1.2.5",
     "rc": "^1.2.8"
   },
   "devDependencies": {
