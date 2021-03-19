@@ -27,17 +27,17 @@
   "readmeFilename": "README.md",
   "gitHead": "f388635a5ab4f4da25702dc0999385d437bdf2bc",
   "dependencies": {
-    "extend": "^3.0.0",
+    "extend": "^3.0.2",
     "json-bigint": "^1.0.0",
-    "lodash": "^4.17.10",
-    "minimist": "^1.1.1",
+    "lodash": "^4.17.21",
+    "minimist": "^1.2.5",
     "rc": "^1.2.8"
   },
   "devDependencies": {
     "bignumber.js": "^2.0.7",
     "docast": "^0.1.1",
     "glob": "^6.0.0",
-    "js-yaml": "^3.2.7",
+    "js-yaml": "^3.14.1",
     "marked": "^0.3.9",
     "mocha": "^5.2.0",
     "sinon": "^1.15.4"
