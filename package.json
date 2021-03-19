@@ -28,7 +28,7 @@
   "gitHead": "f388635a5ab4f4da25702dc0999385d437bdf2bc",
   "dependencies": {
     "extend": "^3.0.0",
-    "json-bigint": "^0.1.4",
+    "json-bigint": "^1.0.0",
     "lodash": "^4.17.10",
     "minimist": "^1.1.1",
     "rc": "^1.2.8"
